@@ -1,0 +1,114 @@
+{
+    "name": "tsh",
+    "displayName": "Turing Syntax Highlighting",
+    "icon": "./images/turing.png",
+    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic intellisense to the Canadian education programming language Turing.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.56.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Debuggers"
+    ],
+    "activationEvents": [
+        "onLanguage:t",
+        "onDebug",
+        "onDebugResolve:turing",
+        "onDebugDynamicConfigurations:turing",
+        "onCommand:extension.tsh.runEditorContents"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "t",
+                "aliases": [
+                    "Turing",
+                    "t"
+                ],
+                "extensions": [
+                    ".t",
+                    ".tu"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "t",
+                "scopeName": "source.t",
+                "path": "./syntaxes/t.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "t",
+                "path": "./snippets/snippets.json"
+            }
+        ],
+        "debuggers": [
+            {
+                "type": "turing",
+                "languages": [
+                    "t"
+                ],
+                "label": "Turing Debug",
+                "program": "./out/debugAdapter.js",
+                "runtime": "node",
+                "configurationAttributes": {
+                    "launch": {
+                        "required": [
+                            "program"
+                        ],
+                        "properties": {
+                            "program": {
+                                "type": "string",
+                                "description": "Relative path to Turing file.",
+                                "default": "${file}"
+                            },
+                            "turingPath": {
+                                "type": "string",
+                                "description": "Absolute path to turing exe",
+                                "default": ""
+                            },
+                            "useWine": {
+                                "type": "boolean",
+                                "description": "Use wine for turing debugging (linux and mac)",
+                                "default": false
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "configuration": {
+            "title": "Turing Syntax Highlighting",
+            "properties": {
+                "tsh.pathToOpenTuring": {
+                    "type": "string",
+                    "description": "Path to the turing executable for debugging"
+                }
+            }
+        }
+    },
+    "main": "./out/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint . --ext .ts,.tsx",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "15.0.2",
+        "@types/vscode": "1.56.0",
+        "@typescript-eslint/eslint-plugin": "^4.16.0",
+        "@typescript-eslint/parser": "^4.16.0",
+        "await-notify": "^1.0.1",
+        "eslint": "^7.21.0",
+        "typescript": "^4.2.2"
+    },
+    "dependencies": {
+        "vscode-debugadapter": "^1.47.0",
+        "vscode-debugprotocol": "^1.47.0"
+    }
+}

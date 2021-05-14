@@ -1,0 +1,130 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Turing",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#userFunctions"
+		},
+		{
+			"include": "#classes"
+		},
+		{
+			"include": "#modules"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [{
+				"name": "punctuation.definition.comment.t",
+				"begin": "%",
+				"end": "\n"
+			},
+			{
+				"name": "punctuation.definition.comment.t",
+				"begin": "/\\*",
+				"end": "\\*/"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.t",
+			"begin": "\"",
+			"end": "\""
+		},
+		"keywords": {
+			"name": "keyword.control.t",
+			"match": "(if|else|elsif|loop|for|result|exit|when|then|end|function|fcn|procedure|proc|export\\s+|import\\s+|\\sto\\s|new|inherit)"
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "entity.name.function.t",
+					"match": "(length|strint|strintok|put|get|getch|cls|repeat|var|const\\s|(?<=(:|of)\\s)(real|int|boolean|string|array|nat|char)|locate|color|colour)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)\\.).+(?=\\()|if"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Limits.)(DefaultFW|DefaultEW|minint|maxint|minnat|maxnat|Radix|NumDigits|MinExp|MaxExp|Rreb)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Math.)(PI|E)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Text.)(WhatRow|WhatCol|WhatColour|WhatColourBack)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Time.)(Sec|Date|Elapsed|ElapsedCPU)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=View.)(maxx|maxy|maxcolour)"
+				}
+			]
+		},
+		"userFunctions": {
+			"patterns": [
+			{
+				"name": "variable.other.property.t",
+				"match": "((?<=(function|fcn|procedure|proc) )[^:(]+(?=:|\\()|(?<=(procedure|proc) ).+|(?<=end ).+)"
+			},
+			{
+				"name": "variable.other.property.t",
+				"match": "(?<=(module|class| pointer to|\\^) *)[^:(]+"
+			},
+			{
+				"name": "variable.other.property.t",
+				"match": "(?<=new )[^:(]+(?=,)"
+			},
+			{
+				"name": "variable.other.property.t",
+				"match": "body|deferred|body|forward"
+			}]
+		},
+		"numbers": {
+			"name": "keyword.other.unit.suffix.integer.t",
+			"match": "\\d+\\.\\d+|\\d|true|false|nil"
+		},
+		"classes": {
+			"name": "entity.name.type.t",
+			"match": "class|pointer|module|\\^|\\-\\>"
+		},
+		"modules": {
+			"name": "entity.name.class",
+			"match": "Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window"
+		},
+		"operators": {
+			"patterns": [{
+				"name": "support.function.t",
+				"match": "[\\s\\)](and|or|not|div|mod\\s+|of|)[=\\s\\(]"
+			},
+			{
+				"name": "support.function.t",
+				"match": "(\\.\\.|=|:|\\+|\\-[^\\>]|\\*|[^\\-]\\>|\\<|,)"
+			}]
+		}
+	},
+	"scopeName": "source.t"
+}
