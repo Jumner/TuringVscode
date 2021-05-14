@@ -2,7 +2,7 @@
     "name": "tsh",
     "displayName": "Turing Syntax Highlighting",
     "icon": "./images/turing.png",
-    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic intellisense to the Canadian education programming language Turing.",
+    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.56.0"

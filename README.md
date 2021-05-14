@@ -1,65 +1,58 @@
-# tsh README
+# Turing Vscode
 
-This is the README for your extension "tsh". After writing up a brief description, we recommend including the following sections.
+Turing Vscode is a language extension that adds syntax highlighting, snippets, basic "debugging" using [OpenTuring](https://github.com/Open-Turing-Project/OpenTuring), and basic autocomplete.
 
+---
 ## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Syntax highlighting which makes it look very pretty.
+- Snippets for remembering the intricacies of the language.
+- No more copy paste, just link to OpenTuring and hit f5 to run it straight from vscode!
+- Basic autocomplete to make writing code faster.
+- Only works on linux and mac right now but windows support will come very soon.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- You must have OpenTuring installed and linked in settings for debugging to work.
+- Wine must be installed if you're on Mac/Linux for debugging to work.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Turing Vscode contributes the following settings:
 
-For example:
+* `tsh.pathToOpenTuring`: This is the absolute path to turing.exe
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+---
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+1. Syntax highlighting is not complete and causes some functions to be multi-coloured.
+2. Syntax highlighting does not properly highlight user defined variables.
+3. The autocomplete does not complete user defined functions and variables.
+4. The autocomplete does not suggest module functions and constants without the module prefix.
+5. A few niche functions, keywords and modules are not included. Notably, the Gui module.
+6. Debugging does not work on windows.
+
+## Planned Features
+- Debugging on windows.
+- Clean up and complete syntax highlighting
+- Add documentation on hover and when in function brackets
+- Exceptions on turing error
+- Autocomplete end statements automatically
+- Prevent autocomplete from stopping newlines
+- Autocomplete of user defined items
+- General code cleanup and bug fixes
+
+## Github Information
+
+- [Github repository](https://github.com/Jumner/TuringVscode)
+
+This is my first Vscode extension and I am pretty new to everything.
+Because of this, [pull requests](https://github.com/Jumner/TuringVscode/pulls) would be greatly appreciated if anyone stumbles into this!
+Please report any [issues](https://github.com/Jumner/TuringVscode/issues) that you run into when using the extension.
+
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 1.0.0 (Initial scuffed release)
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Many features are missing but this is just so my friends can use it
