@@ -1,6 +1,6 @@
 # Turing Vscode
 
-Turing Vscode is a language extension that adds syntax highlighting, snippets, basic "debugging" using [OpenTuring](https://github.com/Open-Turing-Project/OpenTuring), and basic autocomplete.
+Turing Vscode (originally Turing Syntax Highlighting) is a language extension that adds syntax highlighting, snippets, basic "debugging" using [OpenTuring](https://github.com/Open-Turing-Project/OpenTuring), and basic autocomplete.
 
 ---
 ## Features
@@ -53,6 +53,6 @@ Please report any [issues](https://github.com/Jumner/TuringVscode/issues) that y
 
 ## Release Notes
 
-### 1.0.0 (Initial scuffed release)
+### 0.0.1 (Initial scuffed release)
 
 Many features are missing but this is just so my friends can use it

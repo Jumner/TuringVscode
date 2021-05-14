@@ -1,6 +1,7 @@
 {
     "name": "tsh",
-    "displayName": "Turing Syntax Highlighting",
+    "displayName": "Turing Vscode",
+    "publisher": "Jumner (Justin Frank)",
     "icon": "./images/turing.png",
     "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
     "version": "0.0.1",
@@ -9,7 +10,14 @@
     },
     "categories": [
         "Programming Languages",
+        "Snippets",
+        "Language Packs",
+        "Education",
         "Debuggers"
+    ],
+    "keywords": [
+        "Turing",
+        "OpenTuring"
     ],
     "activationEvents": [
         "onLanguage:t",
