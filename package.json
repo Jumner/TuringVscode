@@ -1,18 +1,25 @@
 {
     "name": "tsh",
     "displayName": "Turing Vscode",
-    "publisher": "Jumner (Justin Frank)",
-    "icon": "./images/turing.png",
-    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
+    "publisher": "Jumner",
     "version": "0.0.1",
+    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
+    "icon": "images/turing.png",
+    "homepage": "https://github.com/Jumner/TuringVscode",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Jumner/TuringVscode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Jumner/TuringVscode/issues"
+    },
+    "license": "SEE LICENSE IN LICENSE.txt",
     "engines": {
         "vscode": "^1.56.0"
     },
     "categories": [
         "Programming Languages",
         "Snippets",
-        "Language Packs",
-        "Education",
         "Debuggers"
     ],
     "keywords": [
@@ -23,8 +30,7 @@
         "onLanguage:t",
         "onDebug",
         "onDebugResolve:turing",
-        "onDebugDynamicConfigurations:turing",
-        "onCommand:extension.tsh.runEditorContents"
+        "onDebugDynamicConfigurations:turing"
     ],
     "contributes": {
         "languages": [
@@ -76,12 +82,12 @@
                             },
                             "turingPath": {
                                 "type": "string",
-                                "description": "Absolute path to turing exe",
+                                "description": "Absolute path to turing.exe",
                                 "default": ""
                             },
                             "useWine": {
                                 "type": "boolean",
-                                "description": "Use wine for turing debugging (linux and mac)",
+                                "description": "Use wine for Turing debugging (Linux and Mac)",
                                 "default": false
                             }
                         }
@@ -90,7 +96,7 @@
             }
         ],
         "configuration": {
-            "title": "Turing Syntax Highlighting",
+            "title": "Turing Vscode",
             "properties": {
                 "tsh.pathToOpenTuring": {
                     "type": "string",
@@ -109,6 +115,7 @@
     "devDependencies": {
         "@types/node": "15.0.2",
         "@types/vscode": "1.56.0",
+        "@types/await-notify": "7.07",
         "@typescript-eslint/eslint-plugin": "^4.16.0",
         "@typescript-eslint/parser": "^4.16.0",
         "await-notify": "^1.0.1",
