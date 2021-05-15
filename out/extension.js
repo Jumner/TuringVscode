@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = exports.log = void 0;
+exports.activate = exports.print = void 0;
 const vscode = require("vscode");
 const os_1 = require("os");
 const moduleProvider_1 = require("./providers/moduleProvider");
@@ -8,10 +8,10 @@ const functionProvider_1 = require("./providers/functionProvider");
 const constantProvider_1 = require("./providers/constantProvider");
 const keywordProvider_1 = require("./providers/keywordProvider");
 const operatorProvider_1 = require("./providers/operatorProvider");
-function log(text) {
-    console.log(text);
+function print(text) {
+    vscode.window.showInformationMessage(text);
 }
-exports.log = log;
+exports.print = print;
 class configurationProvider {
     resolveDebugConfiguration(folder, config, token) {
         // if launch.json is missing or empty
@@ -35,7 +35,7 @@ class configurationProvider {
     }
 }
 function activate(context) {
-    const provider = new configurationProvider(); // If not launch.json
+    const provider = new configurationProvider(); // If no launch.json
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {
         provideDebugConfigurations(folder) {

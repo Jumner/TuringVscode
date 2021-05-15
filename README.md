@@ -56,3 +56,8 @@ Please report any [issues](https://github.com/Jumner/TuringVscode/issues) that y
 ### 0.0.1 (Initial scuffed release)
 
 Many features are missing but this is just so my friends can use it
+
+### 0.0.2 (Secondary scuffed release)
+
+Packaging into vsix broke many things so I packaged it myself which is not ideal but fixed debugging problems.
+Windows debugging support should be working but it has not been checked as of release check [issues](https://github.com/Jumner/TuringVscode/issues) for more info.

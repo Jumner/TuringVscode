@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { log } from '../extension';
 import { keywordCompletion } from './completions';
 
 export const keywordProvider = vscode.languages.registerCompletionItemProvider(

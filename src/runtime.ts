@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, execFile } from 'child_process';
 import { EventEmitter } from 'events';
 
 export class Runtime extends EventEmitter {
@@ -6,6 +6,8 @@ export class Runtime extends EventEmitter {
 	private restarting = false;
 	
 	private process = exec('cd'); // Please be quiet
+	private sourceFile = '';
+	private turingPath = 'path/turing.exe';
 	
 	constructor() {
 		super();
@@ -18,14 +20,17 @@ export class Runtime extends EventEmitter {
 		this.run();
 	}
 	
-	
-	private sourceFile = '';
-	private turingPath = 'path/turing.exe';
 	private run() {
-		this.process = exec(`cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`,(stdout, stderr)=>{
-			this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-		});
-		this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+		this.sendEvent('output', `Staring debug: cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`, this.sourceFile);
+		if(this.useWine) {
+			this.process = exec(`cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`,(stdout, stderr)=>{
+				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+			});
+		} else {
+			this.process = execFile(`cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`,(stdout, stderr)=>{
+				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+			});
+		}
 		this.process.on("close",() => {
 			if (this.restarting) this.restarting = false;
 			else this.sendEvent('end');

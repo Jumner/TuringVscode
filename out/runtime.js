@@ -19,10 +19,17 @@ class Runtime extends events_1.EventEmitter {
         this.run();
     }
     run() {
-        this.process = child_process_1.exec(`cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, (stdout, stderr) => {
-            this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-        });
-        this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+        this.sendEvent('output', `Staring debug: cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, this.sourceFile);
+        if (this.useWine) {
+            this.process = child_process_1.exec(`cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, (stdout, stderr) => {
+                this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+            });
+        }
+        else {
+            this.process = child_process_1.execFile(`cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, (stdout, stderr) => {
+                this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+            });
+        }
         this.process.on("close", () => {
             if (this.restarting)
                 this.restarting = false;

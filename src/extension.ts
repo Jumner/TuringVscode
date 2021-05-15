@@ -7,8 +7,8 @@ import { constantProvider } from './providers/constantProvider';
 import { keywordProvider } from './providers/keywordProvider';
 import { operatorProvider } from './providers/operatorProvider';
 
-export function log(text : string) {
-	console.log(text);
+export function print(text : string) {
+	vscode.window.showInformationMessage(text);
 }
 
 class configurationProvider implements vscode.DebugConfigurationProvider {
@@ -37,7 +37,7 @@ class configurationProvider implements vscode.DebugConfigurationProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	const provider = new configurationProvider(); // If not launch.json
+	const provider = new configurationProvider(); // If no launch.json
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {
 		provideDebugConfigurations(folder: WorkspaceFolder | undefined): ProviderResult<DebugConfiguration[]> {
