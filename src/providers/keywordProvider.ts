@@ -80,12 +80,6 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 			));
 
 			completionArray.push(keywordCompletion(
-				'boolean',
-				'The boolean type is used for values that are either true or false. These true-false values can be combined by various operators such as or and and',
-				'True or false'
-			));
-
-			completionArray.push(keywordCompletion(
 				'break',
 				'On systems with a debugger, the environment "pauses" when execution reaches the break statement. While "pausing" is environment specific, in general, the program stops execution until the user presses the "Resume" or "Continue" button. While paused, the program variables can be inspected, stack traces done, etc',
 				'Pauses program'
@@ -240,6 +234,12 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 				'monitor',
 				'A monitor is a special purpose module (see module) that is used with concurrent processes (see process). At most, one concurrent process (see process) can be active in a monitor at a time. This means that a process will be blocked if it calls a monitor that is already active. The process will not be allowed to proceed until the monitor is inactive. The monitor provides mutually exclusive access to the monitor\'s internal data',
 				'Restricted module'
+			));
+
+			completionArray.push(keywordCompletion(
+				'module',
+				'A module declaration creates a package of variables, constants, types, subprograms, etc. The name of the module (id) is given in two places, just after module and just after end. Items declared inside the module can be accessed outside of the module only if they are exported. Items from outside the module that are to be used in the module need to be imported (unless they are predefined or pervasive)',
+				'Static class'
 			));
 
 			completionArray.push(keywordCompletion(

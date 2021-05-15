@@ -364,24 +364,6 @@ export const moduleProvider = vscode.languages.registerCompletionItemProvider(
 			}
 			else if (linePrefix.endsWith('Input.')) {
 				completionArray.push(functionCompletion(
-					'getch',
-					'The getch procedure is used to input a single character without waiting for the end of a line. The parameter ch is set to the next character in the keyboard buffer (the oldest not-yet-read character)',
-					'Sets parameter to input'
-				));
-
-				completionArray.push(functionCompletion(
-					'hasch',
-					'The hasch procedure is used to determine if there is a character that has been typed but not yet been read',
-					'Checks if char is typed'
-				));
-
-				completionArray.push(functionCompletion(
-					'getchar',
-					'The getchar function is used to input a single character without waiting for the end of a line. The next character in the keyboard buffer (the oldest not-yet-read character) is returned',
-					'returns character input'
-				));
-
-				completionArray.push(functionCompletion(
 					'Pause',
 					'The Input.Pause procedure simply waits for a key to be pressed and then returns. It echoes the key pressed if echo mode is set. (See View.Set for setting echo mode)',
 					'Wait for input'
@@ -398,8 +380,6 @@ export const moduleProvider = vscode.languages.registerCompletionItemProvider(
 					'The Input.Flush procedure empties the keyboard buffer. It is often used to avoid accidentally reading multiple keystrokes because the user pressed a key for too long, causing autorepeat',
 					'Flush keyboard buffer'
 				));
-
-
 			}
 			else if (linePrefix.endsWith('Math.')) {
 				completionArray.push(variableCompletion(

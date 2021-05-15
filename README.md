@@ -25,14 +25,12 @@ Turing Vscode contributes the following settings:
 
 ## Known Issues
 
-1. Syntax highlighting is not complete and causes some functions to be multi-coloured.
 2. Syntax highlighting does not properly highlight user defined variables.
 3. The autocomplete does not complete user defined functions and variables.
 4. The autocomplete does not suggest module functions and constants without the module prefix.
 5. A few niche functions, keywords and modules are not included. Notably, the Gui module.
 
 ## Planned Features
-- Clean up and complete syntax highlighting
 - Add documentation on hover and when in function brackets
 - Exceptions on turing error
 - Autocomplete end statements automatically
@@ -67,3 +65,7 @@ Debugging should finally be working on windows. Linux and Mac debugging is also 
 ### 0.0.4 (Windows debugging (again))
 
 This time I verified that debugging does work on Windows now. The only issue at this point is that Turing is stubborn and isn't closed when it's told to. On Mac and Linux it kills it through wine which does listen to me. Solution unclear at this point so you will just have to close it manually. Also I fixed the packaging issues. Await notify was not included in dependencies for some reason and so it was not included in the package. All works now.
+
+### 0.0.5 (Major syntax highlighting improvements)
+
+I vastly improved the syntax highlighting. First of all, anything that autocompletes, also is properly highlighted. I made it far more robust by switching out matches for lookbehinds and lookaheads. This fixed many issues with numbers and also made negative numbers display properly. Before this patch, Methods of modules would highlight regardless of if they actually existed. Now only legit methods highlight. I also made user defined functions highlight which makes them more consistent.

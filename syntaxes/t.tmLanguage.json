@@ -12,13 +12,13 @@
 			"include": "#keywords"
 		},
 		{
-			"include": "#functions"
+			"include": "#numbers"
 		},
 		{
 			"include": "#operators"
 		},
 		{
-			"include": "#numbers"
+			"include": "#functions"
 		},
 		{
 			"include": "#userFunctions"
@@ -32,16 +32,18 @@
 	],
 	"repository": {
 		"comments": {
-			"patterns": [{
-				"name": "punctuation.definition.comment.t",
-				"begin": "%",
-				"end": "\n"
-			},
-			{
-				"name": "punctuation.definition.comment.t",
-				"begin": "/\\*",
-				"end": "\\*/"
-			}]
+			"patterns": [
+				{
+					"name": "punctuation.definition.comment.t",
+					"begin": "%",
+					"end": "\n"
+				},
+				{
+					"name": "punctuation.definition.comment.t",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.t",
@@ -49,38 +51,130 @@
 			"end": "\""
 		},
 		"keywords": {
-			"name": "keyword.control.t",
-			"match": "(if|else|elsif|loop|for|result|exit|when|then|end|function|fcn|procedure|proc|export\\s+|import\\s+|\\sto\\s|new|inherit)"
+			"patterns": [
+				{
+					"name": "keyword.control.t",
+					"match": "\\sself(?=[.\\s])|(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|else|elsif|implement|import|loop|new|open|put|procedure|proc|quit|read)\\s"
+				},
+				{
+					"name": "keyword.control.t",
+					"match": "(?<=\\s)(break|end|exit|getchar|hasch|label|of|pre|post|result|return|when|then)(?=\\s)"
+				} 
+			]
 		},
 		"functions": {
 			"patterns": [
 				{
 					"name": "entity.name.function.t",
-					"match": "(length|strint|strintok|put|get|getch|cls|repeat|var|const\\s|(?<=(:|of)\\s)(real|int|boolean|string|array|nat|char)|locate|color|colour)"
+					"match": "(abs|arccosd|arccos|arcsind|arcsin|arctand|arctan|buttonchoose|buttonmoved|buttonwait|ceil|chr|clock|cls|colourback|colour|cosd|cos|date|delay|drawarc|drawbox|drawdot|drawfillarc|drawfillbox|drawfillmapleleaf|drawfilloval|drawfillpolygon|drawfillstar|drawfill|drawline|drawmapleleaf|drawoval|drawpic|drawpolygon|drawstar|empty|enum|eof|erealstr|exp|fetcharg|floor|frealstr|getch|getenv|getpid|getpriority|index|init|intreal|intstr|length|ln|locatexy|locate|lower|max|min|natreal|natstr|ord|parallelget|parallelput|play|pred|randseed|randnext|randint|rand|realstr|repeat|round|setpriority|setsccreen|sign|sind|sin|sizeof|sound|sqrt|strintok|strint|strnatok|strnat|strrealok|strreal|substring|succ|sysclock|system|tand|tan|time|upper|wallclock|whatdotcolour)\\s?\\("
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=(\\s|\\(|,))(maxcolour|maxcol|maxint|maxnat|maxrow|maxx|maxy|minint|minnat|playdone|simutime|whatcolourback|whatcolour|whatcol|whatrow|KEY(_|_SHIFT_|_CTRL_|_ALT_)F(1[0-2]|[1-9])|KEY_ALT_\\d|KEY_(CTRL|ALT)_[A-Z]|KEY(_|_CTRL_)(HOME|UP_ARROW|PGUP|LEFT_ARROW|END|DOWN_ARROW|PGDN|INSERT|DELETE|BACKSPACE)|KEY_CTRL_(OPEN_BRACKET|CLOSE_BRACKET|UNDERSCORE|BACKSLASH|CARET|)KEY(_|_SHIFT_)TAB|KEY_(TAB|ENTER|ESC|KEYPAD_5|ALT_EQUALS|SHIFT_TAB|BACK_TAB_ALT_MINUS|SHIFT|CTRL|ALT)|ORD_(\\d|LOWER_?[A-Z]|SPACE|QUOTATION_MARK|DOLLAR_SIGN|AMPERSAND|OPEN_PARENTHESIS|ASTERISK|COMMA|PERIOD|SLASH|SEMICOLON|EQUALS|QUESTION_MARK|OPEN|BRACKET|CLOSE|BRACKET|UNDERSCORE|OPEN_BRACE|CLOSE_BRACE|EXCALAMATION_MARK|HAS_MARK|PERCENT_SIGN|SINGLE_QUOTE|CLOSE_PARENTHESIS|PLUS|MINUS|DOT|COLON|LESS_THAN|GREATER_THAN|AT_SIGN|BACKSLASH|CARET|APOSTROPHE|BAR|TILDE))(?=(\\s|\\)|,))"
+				},
+				{
+					"name": "entity.name.function.t",
+					"match": "(?<=(:|of)\\s)(real|int|boolean|string|array|nat|char)"
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)\\.).+(?=\\()|if"
+					"match": "(?<=Config.)(Display|Lang|Machine)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Dir.)(Open|GetLong|Get|Close|Create|Delete|Change|Current|Exists)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Draw.)(Cls|Dot|DashedLine|ThickLine|Line|FillBox|Box|FillOval|Oval|FillArc|Arc|FillPolygon|Polygon|FillMapleLeaf|MapleLeaf|FillStar|Star|Fill|Text)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Error.)(LastMsg|LastStr|Last|Msg|Str|TripMsg|Trip|Halt)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=File.)(Exists|FullPath|Parent|Status|Copy|Rename|Delete|DiskFree)"
 				},
 				{
 					"name": "variable.other.property.t",
 					"match": "(?<=Limits.)(DefaultFW|DefaultEW|minint|maxint|minnat|maxnat|Radix|NumDigits|MinExp|MaxExp|Rreb)"
 				},
 				{
+					"name": "support.function.t",
+					"match": "(?<=Input.)(Pause|KeyDown|Flush)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Math.)(DistancePointLine|Distance)"
+				},
+				{
 					"name": "variable.other.property.t",
 					"match": "(?<=Math.)(PI|E)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Mouse.)(Where|ButtonMoved|ButtonWait|ButtonChoose)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Music.)(PlayFileStop|PlayFileLoop|PlayFileReturn|PlayFile|Play|SoundOff|Sound)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Net.)(WaitForConnection|OpenConnection|OpenURLConnection|CloseConnection|BytesAvailable|CharAvailable|LineAvailable|TokenAvailable|HostAddressFromName|HostNameFromAddress|LocalAddress|LocalName)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=PC.)(ParallelGet|ParallelPut)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Rand.)(Real|Int|Reset|Set|Next|Seed)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=RGB.)(GetColour|SetColour|AddColour)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Stream.)(FlushAll|Flush)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Str.)(Lower|Upper|Trim)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Sys.)(GetComputerName|GetEnv|GetPid|GetUserName|Exec|Nargs|FetchArg)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Text.)(Cls|ColourBack|Colour|LocateXY|Locate)"
 				},
 				{
 					"name": "variable.other.property.t",
 					"match": "(?<=Text.)(WhatRow|WhatCol|WhatColour|WhatColourBack)"
 				},
 				{
+					"name": "support.function.t",
+					"match": "(?<=Time.)(SecDate|DateSec|SecParts|PartsSec|SecStr|DelaySinceLast|Delay)"
+				},
+				{
 					"name": "variable.other.property.t",
 					"match": "(?<=Time.)(Sec|Date|Elapsed|ElapsedCPU)"
 				},
 				{
+					"name": "support.function.t",
+					"match": "(?<=View.)(Set|ClipSet|ClipAddOval|ClipAdd|WhatDotColour|UpdateArea|Update|SetTransparentColour)"
+				},
+				{
 					"name": "variable.other.property.t",
 					"match": "(?<=View.)(maxx|maxy|maxcolour)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Window.)(Open|Close|Select|GetSelect|SetActive|GetActive|GetPosition|SetPosition|Hide|Show|Set|Update)"
 				}
 			]
 		},
@@ -92,7 +186,7 @@
 			},
 			{
 				"name": "variable.other.property.t",
-				"match": "(?<=(module|class| pointer to|\\^) *)[^:(]+"
+				"match": "(?<=(module|class|unit|monitor| pointer to|\\^) *)[^:(]+"
 			},
 			{
 				"name": "variable.other.property.t",
@@ -100,16 +194,19 @@
 			},
 			{
 				"name": "variable.other.property.t",
-				"match": "body|deferred|body|forward"
+				"match": "deferred|forward|flexible|pervasive|unqualified"
+			}, {
+				"name": "variable.other.property.t",
+				"match": "(?<![^\\s\\(\\.])[^\\s\\.]+(?=\\()"
 			}]
 		},
 		"numbers": {
 			"name": "keyword.other.unit.suffix.integer.t",
-			"match": "\\d+\\.\\d+|\\d|true|false|nil"
+			"match": "(?<=(\\d|\\(|\\s|\\.\\.))\\-?\\d+(\\.\\d+)?(?=(\\d|\\)|\\s|\\.))|true|false|nil"
 		},
 		"classes": {
 			"name": "entity.name.type.t",
-			"match": "class|pointer|module|\\^|\\-\\>"
+			"match": "class|pointer|module|monitor|unit|\\^|\\-\\>"
 		},
 		"modules": {
 			"name": "entity.name.class",
@@ -118,11 +215,11 @@
 		"operators": {
 			"patterns": [{
 				"name": "support.function.t",
-				"match": "[\\s\\)](and|or|not|div|mod\\s+|of|)[=\\s\\(]"
+				"match": "[\\s\\)](and|or|not\\s?=?|xor|div|mod|in|shl|shr)[\\s\\(]"
 			},
 			{
 				"name": "support.function.t",
-				"match": "(\\.\\.|=|:|\\+|\\-[^\\>]|\\*|[^\\-]\\>|\\<|,)"
+				"match": "(\\.\\.|=|:|\\+|\\-(?!\\>)|\\*|[^\\-]\\>|\\<|,)"
 			}]
 		}
 	},
