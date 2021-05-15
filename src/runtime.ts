@@ -1,4 +1,4 @@
-import { exec, execFile } from 'child_process';
+import { exec } from 'child_process';
 import { EventEmitter } from 'events';
 
 export class Runtime extends EventEmitter {
@@ -22,15 +22,13 @@ export class Runtime extends EventEmitter {
 	
 	private run() {
 		this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+		let command = `${this.turingPath} -run ${this.sourceFile}`;
 		if(this.useWine) { // True on linux and mac
-			this.process = exec(`wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`,(stdout, stderr)=>{
-				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-			});
-		} else { // Windows
-			this.process = execFile(`${this.turingPath} -run ${this.sourceFile}`,(stdout, stderr)=>{
-				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-			});
+			command = `wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`;
 		}
+		this.process = exec(command,(stderr)=>{
+			this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+		});
 		this.process.on("close",() => {
 			if (this.restarting) this.restarting = false;
 			else this.sendEvent('end');

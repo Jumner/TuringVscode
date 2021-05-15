@@ -30,10 +30,8 @@ Turing Vscode contributes the following settings:
 3. The autocomplete does not complete user defined functions and variables.
 4. The autocomplete does not suggest module functions and constants without the module prefix.
 5. A few niche functions, keywords and modules are not included. Notably, the Gui module.
-6. Debugging does not work on windows.
 
 ## Planned Features
-- Debugging on windows.
 - Clean up and complete syntax highlighting
 - Add documentation on hover and when in function brackets
 - Exceptions on turing error
@@ -65,3 +63,7 @@ Windows debugging support should be working but it has not been checked as of re
 ### 0.0.3 (Finally fixing windows debugging)
 
 Debugging should finally be working on windows. Linux and Mac debugging is also much cleaner now. Just make sure that your wine drive is still Z: otherwise it wont be able to find your file.
+
+### 0.0.4 (Windows debugging (again))
+
+This time I verified that debugging does work on Windows now. The only issue at this point is that Turing is stubborn and isn't closed when it's told to. On Mac and Linux it kills it through wine which does listen to me. Solution unclear at this point so you will just have to close it manually. Also I fixed the packaging issues. Await notify was not included in dependencies for some reason and so it was not included in the package. All works now.

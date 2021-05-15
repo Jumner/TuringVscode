@@ -2,7 +2,7 @@
     "name": "tsh",
     "displayName": "Turing Vscode",
     "publisher": "Jumner",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
     "icon": "images/turing.png",
     "homepage": "https://github.com/Jumner/TuringVscode",
@@ -123,6 +123,7 @@
         "typescript": "^4.2.2"
     },
     "dependencies": {
+        "await-notify": "^1.0.1",
         "vscode-debugadapter": "^1.47.0",
         "vscode-debugprotocol": "^1.47.0"
     }

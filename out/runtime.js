@@ -20,16 +20,13 @@ class Runtime extends events_1.EventEmitter {
     }
     run() {
         this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+        let command = `${this.turingPath} -run ${this.sourceFile}`;
         if (this.useWine) { // True on linux and mac
-            this.process = child_process_1.exec(`wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`, (stdout, stderr) => {
-                this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-            });
+            command = `wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`;
         }
-        else { // Windows
-            this.process = child_process_1.execFile(`${this.turingPath} -run ${this.sourceFile}`, (stdout, stderr) => {
-                this.sendEvent('output', `\n${stderr}`, this.sourceFile);
-            });
-        }
+        this.process = child_process_1.exec(command, (stderr) => {
+            this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+        });
         this.process.on("close", () => {
             if (this.restarting)
                 this.restarting = false;
