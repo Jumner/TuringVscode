@@ -21,13 +21,13 @@ export class Runtime extends EventEmitter {
 	}
 	
 	private run() {
-		this.sendEvent('output', `Staring debug: cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`, this.sourceFile);
-		if(this.useWine) {
-			this.process = exec(`cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`,(stdout, stderr)=>{
+		this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+		if(this.useWine) { // True on linux and mac
+			this.process = exec(`wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`,(stdout, stderr)=>{
 				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
 			});
-		} else {
-			this.process = execFile(`cd ${this.sourceFile.substring(0,this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/')+1)}`,(stdout, stderr)=>{
+		} else { // Windows
+			this.process = execFile(`${this.turingPath} -run ${this.sourceFile}`,(stdout, stderr)=>{
 				this.sendEvent('output', `\n${stderr}`, this.sourceFile);
 			});
 		}

@@ -19,14 +19,14 @@ class Runtime extends events_1.EventEmitter {
         this.run();
     }
     run() {
-        this.sendEvent('output', `Staring debug: cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, this.sourceFile);
-        if (this.useWine) {
-            this.process = child_process_1.exec(`cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, (stdout, stderr) => {
+        this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
+        if (this.useWine) { // True on linux and mac
+            this.process = child_process_1.exec(`wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`, (stdout, stderr) => {
                 this.sendEvent('output', `\n${stderr}`, this.sourceFile);
             });
         }
-        else {
-            this.process = child_process_1.execFile(`cd ${this.sourceFile.substring(0, this.sourceFile.lastIndexOf('/'))} && ${this.useWine ? 'wine' : ''} ${this.turingPath} -run ${this.sourceFile.substring(this.sourceFile.lastIndexOf('/') + 1)}`, (stdout, stderr) => {
+        else { // Windows
+            this.process = child_process_1.execFile(`${this.turingPath} -run ${this.sourceFile}`, (stdout, stderr) => {
                 this.sendEvent('output', `\n${stderr}`, this.sourceFile);
             });
         }

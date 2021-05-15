@@ -61,3 +61,7 @@ Many features are missing but this is just so my friends can use it
 
 Packaging into vsix broke many things so I packaged it myself which is not ideal but fixed debugging problems.
 Windows debugging support should be working but it has not been checked as of release check [issues](https://github.com/Jumner/TuringVscode/issues) for more info.
+
+### 0.0.3 (Finally fixing windows debugging)
+
+Debugging should finally be working on windows. Linux and Mac debugging is also much cleaner now. Just make sure that your wine drive is still Z: otherwise it wont be able to find your file.
