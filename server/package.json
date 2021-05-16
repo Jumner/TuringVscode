@@ -1,0 +1,18 @@
+{
+	"name": "tls",
+	"description": "Turing language server",
+	"version": "0.0.1",
+	"author": "Jumner",
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Jumner/TuringVscode.git"
+	},
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"dependencies": {
+		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1"
+	}
+}

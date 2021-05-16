@@ -1,0 +1,25 @@
+{
+	"name": "tlc",
+	"description": "Turing Language Client",
+	"version": "0.0.1",
+	"author": "Jumner",
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Jumner/TuringVscode.git"
+	},
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"dependencies": {
+		"await-notify": "^1.0.1",
+		"child_process": "^1.0.2",
+		"events": "^3.3.0",
+		"vscode-debugadapter": "^1.47.0",
+		"vscode-languageclient": "^7.0.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.52.0",
+		"vscode-test": "^1.3.0"
+	}
+}
