@@ -101,6 +101,12 @@
                 "tsh.pathToOpenTuring": {
                     "type": "string",
                     "description": "Path to the turing executable for debugging"
+                },
+                "tsh.MaxNumberOfProblems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 100,
+                    "description": "Max number of problems"
                 }
             }
         }
@@ -125,6 +131,9 @@
     "dependencies": {
         "await-notify": "^1.0.1",
         "vscode-debugadapter": "^1.47.0",
-        "vscode-debugprotocol": "^1.47.0"
+        "vscode-debugprotocol": "^1.47.0",
+        "vscode-languageclient": "^7.0.0",
+        "vscode-languageserver": "^7.0.0",
+        "vscode-languageserver-textdocument": "^1.0.1"
     }
 }

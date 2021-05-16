@@ -8,6 +8,9 @@ const functionProvider_1 = require("./providers/functionProvider");
 const constantProvider_1 = require("./providers/constantProvider");
 const keywordProvider_1 = require("./providers/keywordProvider");
 const operatorProvider_1 = require("./providers/operatorProvider");
+// import * as path from 'path';
+// import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
+// let client : LanguageClient;
 function print(text) {
     vscode.window.showInformationMessage(text);
 }
@@ -53,6 +56,35 @@ function activate(context) {
         }
     }));
     context.subscriptions.push(functionProvider_1.functionProvider, moduleProvider_1.moduleProvider, constantProvider_1.constantProvider, keywordProvider_1.keywordProvider, operatorProvider_1.operatorProvider);
+    // Language server
+    // const serverModule = context.asAbsolutePath(path.join('out', 'languageServer', 'server.js'));
+    // const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+    // const serverOptions: ServerOptions = {
+    //   run: { module: serverModule, transport: TransportKind.ipc },
+    //   debug: {
+    //     module: serverModule,
+    //     transport: TransportKind.ipc,
+    //     options: debugOptions
+    //   }
+    // };
+    // const clientOptions : LanguageClientOptions = {
+    // 	documentSelector: [{ scheme: 'file', language: 't'}],
+    // 	synchronize: {
+    // 		fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
+    // 	}
+    // };
+    // client = new LanguageClient(
+    // 	'tsh',
+    // 	serverOptions,
+    // 	clientOptions
+    // );
+    // client.start();
 }
 exports.activate = activate;
+// export function deactivate() : Thenable<void> | undefined {
+// 	if (!client) {
+// 		return undefined;
+// 	}
+// 	return client.stop();
+// }
 //# sourceMappingURL=extension.js.map

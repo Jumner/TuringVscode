@@ -31,8 +31,8 @@ Turing Vscode contributes the following settings:
 5. A few niche functions, keywords and modules are not included. Notably, the Gui module.
 
 ## Planned Features
-- Add documentation on hover and when in function brackets
 - Exceptions on turing error
+- Add documentation on hover and when in function brackets
 - Autocomplete end statements automatically
 - Prevent autocomplete from stopping newlines
 - Autocomplete of user defined items

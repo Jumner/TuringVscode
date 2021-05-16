@@ -8,6 +8,8 @@ export class Runtime extends EventEmitter {
 	private process = exec('cd'); // Please be quiet
 	private sourceFile = '';
 	private turingPath = 'path/turing.exe';
+
+	private _namedException: string | undefined;
 	
 	constructor() {
 		super();
@@ -26,8 +28,8 @@ export class Runtime extends EventEmitter {
 		if(this.useWine) { // True on linux and mac
 			command = `wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`;
 		}
-		this.process = exec(command,(stderr)=>{
-			this.sendEvent('output', `\n${stderr}`, this.sourceFile);
+		this.process = exec(command,(stderr, stdout)=>{
+			this.sendEvent('output', `\n${stdout}`, this.sourceFile);
 		});
 		this.process.on("close",() => {
 			if (this.restarting) this.restarting = false;

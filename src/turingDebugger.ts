@@ -1,7 +1,7 @@
 import {
 	Logger, logger,
 	LoggingDebugSession,
-	InitializedEvent, TerminatedEvent, OutputEvent,Source
+	InitializedEvent, TerminatedEvent, OutputEvent
 } from 'vscode-debugadapter';
 import { DebugProtocol } from 'vscode-debugprotocol';
 import { Runtime } from './runtime';

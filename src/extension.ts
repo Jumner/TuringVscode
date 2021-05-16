@@ -6,6 +6,10 @@ import { functionProvider} from './providers/functionProvider';
 import { constantProvider } from './providers/constantProvider';
 import { keywordProvider } from './providers/keywordProvider';
 import { operatorProvider } from './providers/operatorProvider';
+// import * as path from 'path';
+// import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
+
+// let client : LanguageClient;
 
 export function print(text : string) {
 	vscode.window.showInformationMessage(text);
@@ -55,4 +59,39 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}));
 	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider);
+
+	// Language server
+	// const serverModule = context.asAbsolutePath(path.join('out', 'languageServer', 'server.js'));
+	// const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+
+	// const serverOptions: ServerOptions = {
+  //   run: { module: serverModule, transport: TransportKind.ipc },
+  //   debug: {
+  //     module: serverModule,
+  //     transport: TransportKind.ipc,
+  //     options: debugOptions
+  //   }
+  // };
+
+	// const clientOptions : LanguageClientOptions = {
+	// 	documentSelector: [{ scheme: 'file', language: 't'}],
+	// 	synchronize: {
+	// 		fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
+	// 	}
+	// };
+
+	// client = new LanguageClient(
+	// 	'tsh',
+	// 	serverOptions,
+	// 	clientOptions
+	// );
+
+	// client.start();
 }
+
+// export function deactivate() : Thenable<void> | undefined {
+// 	if (!client) {
+// 		return undefined;
+// 	}
+// 	return client.stop();
+// }
