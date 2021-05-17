@@ -8,7 +8,6 @@ Turing Vscode (originally Turing Syntax Highlighting) is a language extension th
 - Snippets for remembering the intricacies of the language.
 - No more copy paste, just link to OpenTuring and hit f5 to run it straight from vscode!
 - Basic autocomplete to make writing code faster.
-- Only works on linux and mac right now but windows support will come very soon.
 
 ## Requirements
 
@@ -25,18 +24,16 @@ Turing Vscode contributes the following settings:
 
 ## Known Issues
 
-2. Syntax highlighting does not properly highlight user defined variables.
-3. The autocomplete does not complete user defined functions and variables.
-4. The autocomplete does not suggest module functions and constants without the module prefix.
-5. A few niche functions, keywords and modules are not included. Notably, the Gui module.
+1. Syntax highlighting does not properly highlight user defined variables.
+2. The autocomplete does not complete user defined functions and variables.
+3. The autocomplete does not suggest module functions and constants without the module prefix.
+4. A few niche functions, keywords and modules are not included. Notably, the Gui module.
 
 ## Planned Features
-- Exceptions on turing error
-- Add documentation on hover and when in function brackets
-- Autocomplete end statements automatically
-- Prevent autocomplete from stopping newlines
 - Autocomplete of user defined items
 - General code cleanup and bug fixes
+- Add documentation on hover and when in function brackets
+- Prevent autocomplete from stopping newlines
 
 ## Github Information
 
@@ -69,3 +66,7 @@ This time I verified that debugging does work on Windows now. The only issue at 
 ### 0.0.5 (Major syntax highlighting improvements)
 
 I vastly improved the syntax highlighting. First of all, anything that autocompletes, also is properly highlighted. I made it far more robust by switching out matches for lookbehinds and lookaheads. This fixed many issues with numbers and also made negative numbers display properly. Before this patch, Methods of modules would highlight regardless of if they actually existed. Now only legit methods highlight. I also made user defined functions highlight which makes them more consistent.
+
+### 0.0.6 (Error Underlining and fixed windows debugging)
+
+Now syntax errors will print much more nicely to the debug console. They will also be underlined in red and give you information on the error on hover. Windows debugging is now fully working. This fix also makes debugging on Linux and Mac reliable when running slower hardware. 

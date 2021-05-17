@@ -2,7 +2,7 @@
     "name": "tsh",
     "displayName": "Turing Vscode",
     "publisher": "Jumner",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
     "icon": "images/turing.png",
     "homepage": "https://github.com/Jumner/TuringVscode",
@@ -67,7 +67,7 @@
                     "t"
                 ],
                 "label": "Turing Debug",
-                "program": "./out/debugAdapter.js",
+                "program": "./client/out/debugAdapter.js",
                 "runtime": "node",
                 "configurationAttributes": {
                     "launch": {

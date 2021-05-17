@@ -8,10 +8,8 @@ import {
 	TextDocumentSyncKind,
 	InitializeResult
 } from 'vscode-languageserver/node';
-
-import {
-	TextDocument
-} from 'vscode-languageserver-textdocument';
+import { TextDocument } from 'vscode-languageserver-textdocument';
+import * as http from 'http';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -20,6 +18,40 @@ const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasDiagnosticRelatedInformationCapability = false;
+
+const errorServer = http.createServer((req, res) => {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end('Request Received');
+	req.on('data', d => {
+		const data = JSON.parse(d);
+		const diagnostics : Diagnostic[] = [];
+		data.errors.forEach((err : {line : number, startChar : number, endChar : number, type : string, full : string}) => {
+			const diagnostic: Diagnostic = {
+				severity: DiagnosticSeverity.Error,
+				range: {
+					start: { line: err.line, character: err.startChar },
+					end: { line: err.line, character: err.endChar }
+				},
+				message: err.type,
+			};
+			if (hasDiagnosticRelatedInformationCapability) {
+				diagnostic.relatedInformation = [
+					{
+						location: {
+							uri: data.uri,
+							range: diagnostic.range
+						},
+						message: `${err.full}`
+					}
+				];
+			}
+			diagnostics.push(diagnostic);
+		});
+		connection.sendDiagnostics({ uri: data.uri, diagnostics });
+	});
+});
+
+errorServer.listen(6010);
 
 connection.onInitialize((params: InitializeParams) => {
 	const capabilities = params.capabilities;
@@ -34,59 +66,12 @@ connection.onInitialize((params: InitializeParams) => {
 			textDocumentSync: TextDocumentSyncKind.Incremental,
 		}
 	};
-	documents.all().forEach(validateTextDocument);
 	return result;
 });
 
-connection.onDidChangeConfiguration(change => {
-
-// Revalidate all open text documents
-	documents.all().forEach(validateTextDocument);
-});
-
-
-// The content of a text document has changed. This event is emitted
-// when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
-	validateTextDocument(change.document);
+	connection.sendDiagnostics({ uri: change.document.uri, diagnostics: [] });
 });
 
-async function validateTextDocument(textDocument: TextDocument): Promise<void> {
-	// In this simple example we get the settings for every validate run.
-	// The validator creates diagnostics for all uppercase words length 2 and more
-	const text = textDocument.getText();
-	const pattern = /\b[A-Z]{2,}\b/g;
-	const	m = pattern.exec(text);
-	const diagnostics: Diagnostic[] = [];
-	if (m) {
-		const diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(m.index),
-				end: textDocument.positionAt(m.index)
-			},
-			message: `${m[0]} is all uppercase.`,
-			source: 'ex'
-		};
-		if (hasDiagnosticRelatedInformationCapability) {
-			diagnostic.relatedInformation = [
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Spelling'
-				}
-			];
-		}
-		diagnostics.push(diagnostic);
-	}
-	// Send the computed diagnostics to VSCode.
-	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
-}
-
-// Make the text document manager listen on the connection
-// for open, change and close text document events
 documents.listen(connection);
-// Listen on the connection
 connection.listen();

@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Runtime = void 0;
 const child_process_1 = require("child_process");
 const events_1 = require("events");
+const http = require("http");
+const vscode_uri_1 = require("vscode-uri");
 class Runtime extends events_1.EventEmitter {
     constructor() {
         super();
@@ -18,6 +20,28 @@ class Runtime extends events_1.EventEmitter {
         this.useWine = useWine;
         this.run();
     }
+    parseError(err) {
+        const res = {
+            errors: [],
+            uri: vscode_uri_1.URI.file(this.sourceFile).toString()
+        };
+        const lines = err.split('\n');
+        lines.splice(0, 2);
+        lines.pop();
+        lines.pop();
+        this.sendEvent('output', 'Syntax Errors:'); // Output the error to debug console
+        lines.forEach(line => {
+            this.sendEvent('output', line); // Output the error to debug console
+            res.errors.push({
+                line: Number(line.substring(line.indexOf('Line ') + 5, line.indexOf(' ['))) - 1,
+                startChar: Number(line.substring(line.indexOf('[') + 1, line.indexOf(' - '))) - 1,
+                endChar: Number(line.substring(line.indexOf(' - ') + 3, line.indexOf('] of '))) - 1,
+                type: line.substring(line.indexOf(': ') + 2),
+                full: line
+            });
+        });
+        return JSON.stringify(res);
+    }
     run() {
         this.sendEvent('output', `Staring debug: ${this.sourceFile}`, this.sourceFile);
         let command = `${this.turingPath} -run ${this.sourceFile}`;
@@ -25,11 +49,24 @@ class Runtime extends events_1.EventEmitter {
             command = `wine ${this.turingPath} -run ${"Z:" + this.sourceFile.replace('/', '\\\\')}`;
         }
         this.process = child_process_1.exec(command, (stderr, stdout) => {
-            this.sendEvent('output', `\n${stdout}`, this.sourceFile);
+            if (stdout.includes('Syntax Errors:')) {
+                const req = http.request({
+                    hostname: '127.0.0.1',
+                    port: 6010,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                req.write(this.parseError(stdout));
+                req.end();
+            }
         });
         this.process.on("close", () => {
-            if (this.restarting)
+            if (this.restarting) {
                 this.restarting = false;
+                this.run();
+            }
             else
                 this.sendEvent('end');
         });
@@ -37,14 +74,13 @@ class Runtime extends events_1.EventEmitter {
     restart() {
         this.restarting = true;
         this.quit();
-        this.run();
     }
     quit() {
         if (this.useWine) {
             child_process_1.exec('wineserver -k');
         }
         else {
-            this.process.kill();
+            child_process_1.exec(`taskkil /PID ${this.process.pid}`);
         }
     }
     sendEvent(event, ...args) {
