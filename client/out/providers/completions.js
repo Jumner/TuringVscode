@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.operatorCompletion = exports.keywordCompletion = exports.variableCompletion = exports.constantCompletion = exports.moduleCompletion = exports.functionCompletion = void 0;
+exports.operatorCompletion = exports.keywordCompletion = exports.userClassCompletion = exports.userCompletion = exports.variableCompletion = exports.constantCompletion = exports.moduleCompletion = exports.functionCompletion = void 0;
 const vscode = require("vscode");
 // completion templates 
 function functionCompletion(name, documentation, description) {
@@ -41,6 +41,24 @@ function variableCompletion(name, documentation, description) {
     return completion;
 }
 exports.variableCompletion = variableCompletion;
+function userCompletion(name, documentation, description, kind) {
+    const completion = new vscode.CompletionItem(name, kind);
+    completion.insertText = name;
+    completion.documentation = documentation;
+    completion.detail = description;
+    completion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+    return completion;
+}
+exports.userCompletion = userCompletion;
+function userClassCompletion(name, documentation, description) {
+    const completion = new vscode.CompletionItem(name, vscode.CompletionItemKind.Variable);
+    completion.insertText = name;
+    completion.documentation = documentation;
+    completion.detail = description;
+    completion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+    return completion;
+}
+exports.userClassCompletion = userClassCompletion;
 function keywordCompletion(name, documentation, description) {
     const completion = new vscode.CompletionItem(name, vscode.CompletionItemKind.Keyword);
     completion.insertText = name;

@@ -51,7 +51,7 @@ const errorServer = http.createServer((req, res) => {
 	});
 });
 
-errorServer.listen(6010);
+errorServer.listen(9725);
 
 connection.onInitialize((params: InitializeParams) => {
 	const capabilities = params.capabilities;

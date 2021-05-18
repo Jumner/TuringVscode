@@ -170,12 +170,6 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 			));
 
 			completionArray.push(keywordCompletion(
-				'getchar',
-				'The getchar function is used to input a single character without waiting for the end of a line. The next character in the keyboard buffer (the oldest not-yet-read character) is returned',
-				'returns character input'
-			));
-
-			completionArray.push(keywordCompletion(
 				'get',
 				'The get statement inputs each of the getItems. Ordinarily, the output comes from the keyboard. However, if the streamNumber is present, the input comes from the file specified by the stream number (see the open statement for details). Also, input can be redirected so it is taken from a file rather than the keyboard. Check the documentation on the environment for instructions on doing so',
 				'Get input'
@@ -188,16 +182,11 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 			));
 
 			completionArray.push(keywordCompletion(
-				'hasch',
-				'The hasch procedure is used to determine if there is a character that has been typed but not yet been read',
-				'Checks if char is typed'
-			));
-
-			completionArray.push(keywordCompletion(
 				'if',
 				'An if statement is used to choose among a set of statements (and declarations). One set (at most) is chosen and executed and then execution continues just beyond end if',
 				'If statement'
 			));
+
 			if(linePrefix.endsWith('implement ')) {
 				completionArray.push(keywordCompletion(
 					'by',
@@ -328,6 +317,12 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 			));
 
 			completionArray.push(keywordCompletion(
+				'to',
+				'Used when creating pointers to user defined classes. Also used when binding a variable to another reference variable',
+				'Type of pointer'
+			));
+
+			completionArray.push(keywordCompletion(
 				'unit',
 				'A program can be divided up into units, each in a separate file. All of these files except the main program begin with the keyword unit. The unit contains the main program, a module, a monitor or a class',
 				'Header to a secondary file'
@@ -343,12 +338,6 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 				'of',
 				'Used in declaring arrays, the of keyword determines the datatype of the contents of an array',
 				'Type of array'
-			));
-
-			completionArray.push(keywordCompletion(
-				'to',
-				'Used when instantiating classes. Determines what class a pointer points to',
-				'Type of pointer'
 			));
 
 			completionArray.push(keywordCompletion(

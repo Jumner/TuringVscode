@@ -6,10 +6,15 @@ import { functionProvider} from './providers/functionProvider';
 import { constantProvider } from './providers/constantProvider';
 import { keywordProvider } from './providers/keywordProvider';
 import { operatorProvider } from './providers/operatorProvider';
+import { userProvider } from './providers/userProvider';
 import * as path from 'path';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
 
 let client : LanguageClient;
+
+export function log(text : string) {
+	console.log(text);
+}
 
 class configurationProvider implements vscode.DebugConfigurationProvider {
 	resolveDebugConfiguration(folder: WorkspaceFolder | undefined, config: DebugConfiguration, token?: CancellationToken): ProviderResult<DebugConfiguration> {
@@ -54,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
 			];
 		}
 	}));
-	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider);
+	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider, userProvider);
 
 	// Language server
 	const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));

@@ -286,6 +286,12 @@ export const functionProvider = vscode.languages.registerCompletionItemProvider(
 			));
 
 			completionArray.push(functionCompletion(
+				'getchar',
+				'The getchar function is used to input a single character without waiting for the end of a line. The next character in the keyboard buffer (the oldest not-yet-read character) is returned',
+				'returns character input'
+			));
+
+			completionArray.push(functionCompletion(
 				'getenv',
 				'The getenv function is used to access the environment string whose name is symbol. These strings are determined by the shell (command processor) or the program that caused your program to run. See also the nargs and fetcharg functions',
 				'Get system environment'
@@ -301,6 +307,12 @@ export const functionProvider = vscode.languages.registerCompletionItemProvider(
 				'getpriority',
 				'The getpriority function returns the priority of an executing process in a concurrent program. A smaller value means a faster speed',
 				'Get the process priority'
+			));
+
+			completionArray.push(functionCompletion(
+				'hasch',
+				'The hasch procedure is used to determine if there is a character that has been typed but not yet been read',
+				'Checks if char is typed'
 			));
 
 			completionArray.push(functionCompletion(

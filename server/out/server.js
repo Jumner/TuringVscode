@@ -40,7 +40,7 @@ const errorServer = http.createServer((req, res) => {
         connection.sendDiagnostics({ uri: data.uri, diagnostics });
     });
 });
-errorServer.listen(6010);
+errorServer.listen(9725);
 connection.onInitialize((params) => {
     const capabilities = params.capabilities;
     hasDiagnosticRelatedInformationCapability = !!(capabilities.textDocument &&

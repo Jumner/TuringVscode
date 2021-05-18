@@ -23,9 +23,11 @@ export class Runtime extends EventEmitter {
 	}
 	
 	private parseError(err : string) : string {
+		let uri = URI.file(this.sourceFile).toString();
+		if (uri.endsWith('\\')) uri = uri.slice(0, uri.length-2);
 		const res = {
 			errors: [],
-			uri: URI.file(this.sourceFile).toString()
+			uri: uri
 		};
 		const lines = err.split('\n');
 		lines.splice(0,2);
@@ -55,7 +57,7 @@ export class Runtime extends EventEmitter {
 			if(stdout.includes('Syntax Errors:')) {
 				const req = http.request({
 					hostname: '127.0.0.1',
-					port: 6010,
+					port: 9725,
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -82,7 +84,7 @@ export class Runtime extends EventEmitter {
 		if (this.useWine) {
 			exec('wineserver -k');
 		} else {
-			exec(`taskkil /PID ${this.process.pid}`);
+			exec(`taskkil /F /IM turing.exe`); // Why is windows so broken. Maybe because I push updates without testing
 		}
 	}
 

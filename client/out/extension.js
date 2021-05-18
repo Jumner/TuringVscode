@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deactivate = exports.activate = void 0;
+exports.deactivate = exports.activate = exports.log = void 0;
 const vscode = require("vscode");
 const os_1 = require("os");
 const moduleProvider_1 = require("./providers/moduleProvider");
@@ -8,9 +8,14 @@ const functionProvider_1 = require("./providers/functionProvider");
 const constantProvider_1 = require("./providers/constantProvider");
 const keywordProvider_1 = require("./providers/keywordProvider");
 const operatorProvider_1 = require("./providers/operatorProvider");
+const userProvider_1 = require("./providers/userProvider");
 const path = require("path");
 const node_1 = require("vscode-languageclient/node");
 let client;
+function log(text) {
+    console.log(text);
+}
+exports.log = log;
 class configurationProvider {
     resolveDebugConfiguration(folder, config, token) {
         // if launch.json is missing or empty
@@ -51,7 +56,7 @@ function activate(context) {
             ];
         }
     }));
-    context.subscriptions.push(functionProvider_1.functionProvider, moduleProvider_1.moduleProvider, constantProvider_1.constantProvider, keywordProvider_1.keywordProvider, operatorProvider_1.operatorProvider);
+    context.subscriptions.push(functionProvider_1.functionProvider, moduleProvider_1.moduleProvider, constantProvider_1.constantProvider, keywordProvider_1.keywordProvider, operatorProvider_1.operatorProvider, userProvider_1.userProvider);
     // Language server
     const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
     const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };

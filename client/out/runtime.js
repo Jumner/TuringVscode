@@ -21,9 +21,12 @@ class Runtime extends events_1.EventEmitter {
         this.run();
     }
     parseError(err) {
+        let uri = vscode_uri_1.URI.file(this.sourceFile).toString();
+        if (uri.endsWith('\\'))
+            uri = uri.slice(0, uri.length - 2);
         const res = {
             errors: [],
-            uri: vscode_uri_1.URI.file(this.sourceFile).toString()
+            uri: uri
         };
         const lines = err.split('\n');
         lines.splice(0, 2);
@@ -52,7 +55,7 @@ class Runtime extends events_1.EventEmitter {
             if (stdout.includes('Syntax Errors:')) {
                 const req = http.request({
                     hostname: '127.0.0.1',
-                    port: 6010,
+                    port: 9725,
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -80,7 +83,7 @@ class Runtime extends events_1.EventEmitter {
             child_process_1.exec('wineserver -k');
         }
         else {
-            child_process_1.exec(`taskkil /PID ${this.process.pid}`);
+            child_process_1.exec(`taskkil /F /IM turing.exe`); // Why is windows so broken. Maybe because I push updates without testing
         }
     }
     sendEvent(event, ...args) {

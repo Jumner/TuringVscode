@@ -24,16 +24,14 @@ Turing Vscode contributes the following settings:
 
 ## Known Issues
 
-1. Syntax highlighting does not properly highlight user defined variables.
-2. The autocomplete does not complete user defined functions and variables.
-3. The autocomplete does not suggest module functions and constants without the module prefix.
-4. A few niche functions, keywords and modules are not included. Notably, the Gui module.
+1. The autocomplete does not suggest module functions and constants without the module prefix.
+2. A few niche functions, keywords and modules are not included. Notably, the Gui module.
 
 ## Planned Features
-- Autocomplete of user defined items
 - General code cleanup and bug fixes
 - Add documentation on hover and when in function brackets
 - Prevent autocomplete from stopping newlines
+- 
 
 ## Github Information
 
@@ -61,12 +59,31 @@ Debugging should finally be working on windows. Linux and Mac debugging is also 
 
 ### 0.0.4 (Windows debugging (again))
 
-This time I verified that debugging does work on Windows now. The only issue at this point is that Turing is stubborn and isn't closed when it's told to. On Mac and Linux it kills it through wine which does listen to me. Solution unclear at this point so you will just have to close it manually. Also I fixed the packaging issues. Await notify was not included in dependencies for some reason and so it was not included in the package. All works now.
+- Debugging now works on windows. Though stopping and restarting do not yet work.
+- Extension is packaged properly which dramatically reduces file size.
 
 ### 0.0.5 (Major syntax highlighting improvements)
 
-I vastly improved the syntax highlighting. First of all, anything that autocompletes, also is properly highlighted. I made it far more robust by switching out matches for lookbehinds and lookaheads. This fixed many issues with numbers and also made negative numbers display properly. Before this patch, Methods of modules would highlight regardless of if they actually existed. Now only legit methods highlight. I also made user defined functions highlight which makes them more consistent.
+- Syntax highlighting highlights all keywords, classes, and functions that autocomplete.
+- Syntax highlighting is far more robust due to more use of lookbehinds and lookaheads.
+- Fixed an issue where numbers do not highlight properly.
+- Negative numbers now highlight as numbers and not as operators.
+- Module Methods and properties now only highlight if they are legitimate parts of said module.
+- User defined functions now highlight consistently.
 
 ### 0.0.6 (Error Underlining and fixed windows debugging)
 
-Now syntax errors will print much more nicely to the debug console. They will also be underlined in red and give you information on the error on hover. Windows debugging is now fully working. This fix also makes debugging on Linux and Mac reliable when running slower hardware. 
+- Syntax errors print nicely to the debug console.
+- Syntax errors will be underlined in red after running the program (Added for windows in v0.0.7).
+- Hovering over squiggly line or checking problems reveals more information.
+- Improvements to debugging code.
+
+### 0.0.7 (User defined autocompletion)
+
+- Improved syntax highlighting:
+- Arrays were treated as functions when accessed and so now, syntax highlighting colours them as such.
+- A few functions were treated as keywords, they are now all functions.
+- Windows underlining works just fine now (I actually tested it this time). 
+- User defined functions, variables, classes, and Class Methods and Properties now autocomplete.
+- User defined items do not autocomplete out of their scope.
+- Class methods and properties still autocomplete without proper prefixes

@@ -54,11 +54,11 @@
 			"patterns": [
 				{
 					"name": "keyword.control.t",
-					"match": "\\sself(?=[.\\s])|(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|else|elsif|implement|import|loop|new|open|put|procedure|proc|quit|read)\\s"
+					"match": "(?<![\\w])self(?=[.\\s)])|(?<![\\w])(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|else|elsif|implement|import|loop|new|open|put|procedure|proc|quit|read)\\s"
 				},
 				{
 					"name": "keyword.control.t",
-					"match": "(?<=\\s)(break|end|exit|getchar|hasch|label|of|pre|post|result|return|when|then)(?=\\s)"
+					"match": "(?<=\\s)(break|end|exit|label|of|pre|post|result|to|return|when|then)(?=\\s)"
 				} 
 			]
 		},
@@ -66,7 +66,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.function.t",
-					"match": "(abs|arccosd|arccos|arcsind|arcsin|arctand|arctan|buttonchoose|buttonmoved|buttonwait|ceil|chr|clock|cls|colourback|colour|cosd|cos|date|delay|drawarc|drawbox|drawdot|drawfillarc|drawfillbox|drawfillmapleleaf|drawfilloval|drawfillpolygon|drawfillstar|drawfill|drawline|drawmapleleaf|drawoval|drawpic|drawpolygon|drawstar|empty|enum|eof|erealstr|exp|fetcharg|floor|frealstr|getch|getenv|getpid|getpriority|index|init|intreal|intstr|length|ln|locatexy|locate|lower|max|min|natreal|natstr|ord|parallelget|parallelput|play|pred|randseed|randnext|randint|rand|realstr|repeat|round|setpriority|setsccreen|sign|sind|sin|sizeof|sound|sqrt|strintok|strint|strnatok|strnat|strrealok|strreal|substring|succ|sysclock|system|tand|tan|time|upper|wallclock|whatdotcolour)\\s?\\("
+					"match": "(hasch|getchar|abs|arccosd|arccos|arcsind|arcsin|arctand|arctan|buttonchoose|buttonmoved|buttonwait|ceil|chr|clock|cls|colourback|colour|cosd|cos|date|delay|drawarc|drawbox|drawdot|drawfillarc|drawfillbox|drawfillmapleleaf|drawfilloval|drawfillpolygon|drawfillstar|drawfill|drawline|drawmapleleaf|drawoval|drawpic|drawpolygon|drawstar|empty|enum|eof|erealstr|exp|fetcharg|floor|frealstr|getch|getenv|getpid|getpriority|index|init|intreal|intstr|length|ln|locatexy|locate|lower|max|min|natreal|natstr|ord|parallelget|parallelput|play|pred|randseed|randnext|randint|rand|realstr|repeat|round|setpriority|setsccreen|sign|sind|sin|sizeof|sound|sqrt|strintok|strint|strnatok|strnat|strrealok|strreal|substring|succ|sysclock|system|tand|tan|time|upper|wallclock|whatdotcolour)\\s?\\("
 				},
 				{
 					"name": "variable.other.property.t",
@@ -182,7 +182,11 @@
 			"patterns": [
 			{
 				"name": "variable.other.property.t",
-				"match": "((?<=(function|fcn|procedure|proc) )[^:(]+(?=:|\\()|(?<=(procedure|proc) ).+|(?<=end ).+)"
+				"match": "(?<=(var|const|bind)\\s)[^\\s:]+(?=\\s?:\\s?array)"
+			},	
+			{
+				"name": "variable.other.property.t",
+				"match": "((?<=(function|fcn|procedure|proc) )[^:(]+(?=:|\\()|(?<=(procedure|proc) )[^%]+|(?<=end )[^%]+)"
 			},
 			{
 				"name": "variable.other.property.t",
@@ -195,14 +199,15 @@
 			{
 				"name": "variable.other.property.t",
 				"match": "deferred|forward|flexible|pervasive|unqualified"
-			}, {
+			},
+			{
 				"name": "variable.other.property.t",
-				"match": "(?<![^\\s\\(\\.])[^\\s\\.]+(?=\\()"
+				"match": "(?<![^\\s\\(\\.>])[^\\s\\.->]+(?=\\()"
 			}]
 		},
 		"numbers": {
 			"name": "keyword.other.unit.suffix.integer.t",
-			"match": "(?<=(\\d|\\(|\\s|\\.\\.))\\-?\\d+(\\.\\d+)?(?=(\\d|\\)|\\s|\\.))|true|false|nil"
+			"match": "(?<=(\\d|\\(|\\s|\\.\\.|,))\\-?\\d+(\\.\\d+)?(?=(\\d|\\)|\\s|\\.|,))|true|false|nil"
 		},
 		"classes": {
 			"name": "entity.name.type.t",
@@ -210,7 +215,7 @@
 		},
 		"modules": {
 			"name": "entity.name.class",
-			"match": "Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window"
+			"match": "(?=>[^\\w])(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)"
 		},
 		"operators": {
 			"patterns": [{
