@@ -87,3 +87,8 @@ Debugging should finally be working on windows. Linux and Mac debugging is also 
 - User defined functions, variables, classes, and Class Methods and Properties now autocomplete.
 - User defined items do not autocomplete out of their scope.
 - Class methods and properties still autocomplete without proper prefixes
+
+### 0.0.8 (General fixes)
+- Server now acts through a named pipe instead of ports which could cause crashing.
+- Slightly improved syntax highlighting
+- 

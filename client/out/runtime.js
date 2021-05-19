@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Runtime = void 0;
 const child_process_1 = require("child_process");
 const events_1 = require("events");
-const http = require("http");
+const net_1 = require("net");
+const os_1 = require("os");
 const vscode_uri_1 = require("vscode-uri");
 class Runtime extends events_1.EventEmitter {
     constructor() {
@@ -53,16 +54,9 @@ class Runtime extends events_1.EventEmitter {
         }
         this.process = child_process_1.exec(command, (stderr, stdout) => {
             if (stdout.includes('Syntax Errors:')) {
-                const req = http.request({
-                    hostname: '127.0.0.1',
-                    port: 9725,
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                req.write(this.parseError(stdout));
-                req.end();
+                const stream = net_1.connect(os_1.tmpdir() + '/errorSocket.sock'); // Mathew Bain sock
+                stream.write(this.parseError(stdout));
+                stream.end();
             }
         });
         this.process.on("close", () => {

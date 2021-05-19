@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { EventEmitter } from 'events';
-import * as http from 'http';
+import { connect } from 'net';
+import { tmpdir } from 'os';
 import { URI } from 'vscode-uri';
 
 export class Runtime extends EventEmitter {
@@ -55,16 +56,9 @@ export class Runtime extends EventEmitter {
 		}
 		this.process = exec(command,(stderr, stdout)=>{
 			if(stdout.includes('Syntax Errors:')) {
-				const req = http.request({
-					hostname: '127.0.0.1',
-					port: 9725,
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				});
-				req.write(this.parseError(stdout));
-				req.end();
+				const stream = connect(tmpdir() + '/errorSocket.sock'); // Mathew Bain sock
+				stream.write(this.parseError(stdout));
+				stream.end();
 			}
 		});
 		this.process.on("close",() => {

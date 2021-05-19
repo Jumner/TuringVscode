@@ -11,6 +11,7 @@ const operatorProvider_1 = require("./providers/operatorProvider");
 const userProvider_1 = require("./providers/userProvider");
 const path = require("path");
 const node_1 = require("vscode-languageclient/node");
+const child_process_1 = require("child_process");
 let client;
 function log(text) {
     console.log(text);
@@ -39,6 +40,12 @@ class configurationProvider {
     }
 }
 function activate(context) {
+    if (os_1.platform() == 'win32') { // Remove pipes to prevent errors later
+        child_process_1.exec('del ' + os_1.tmpdir() + '/errorSocket.sock');
+    }
+    else {
+        child_process_1.exec('rm ' + os_1.tmpdir() + '/errorSocket.sock');
+    }
     const provider = new configurationProvider(); // If no launch.json
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {

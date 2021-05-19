@@ -9,7 +9,8 @@ import {
 	InitializeResult
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import * as http from 'http';
+import { createServer } from 'net';
+import { tmpdir } from 'os';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -19,11 +20,9 @@ const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasDiagnosticRelatedInformationCapability = false;
 
-const errorServer = http.createServer((req, res) => {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Request Received');
-	req.on('data', d => {
-		const data = JSON.parse(d);
+const errorServer = createServer(stream => {
+	stream.on('data', d => {
+		const data = JSON.parse(d.toString());
 		const diagnostics : Diagnostic[] = [];
 		data.errors.forEach((err : {line : number, startChar : number, endChar : number, type : string, full : string}) => {
 			const diagnostic: Diagnostic = {
@@ -51,8 +50,7 @@ const errorServer = http.createServer((req, res) => {
 	});
 });
 
-errorServer.listen(9725);
-
+errorServer.listen(tmpdir() + '/errorSocket.sock'); // Mathew Bain sock
 connection.onInitialize((params: InitializeParams) => {
 	const capabilities = params.capabilities;
 	hasDiagnosticRelatedInformationCapability = !!(

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
-import { platform } from 'os';
+import { platform, tmpdir } from 'os';
 import { moduleProvider } from './providers/moduleProvider';
 import { functionProvider} from './providers/functionProvider';
 import { constantProvider } from './providers/constantProvider';
@@ -9,6 +9,7 @@ import { operatorProvider } from './providers/operatorProvider';
 import { userProvider } from './providers/userProvider';
 import * as path from 'path';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
+import { exec } from 'child_process';
 
 let client : LanguageClient;
 
@@ -42,6 +43,11 @@ class configurationProvider implements vscode.DebugConfigurationProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+	if(platform() == 'win32') { // Remove pipes to prevent errors later
+		exec('del ' + tmpdir() + '/errorSocket.sock');
+	} else {
+		exec('rm ' + tmpdir() + '/errorSocket.sock');
+	}
 	const provider = new configurationProvider(); // If no launch.json
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {
