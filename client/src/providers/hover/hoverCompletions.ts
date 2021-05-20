@@ -4,8 +4,9 @@ export const wordRgx = /(?<![\w])[^\s]+(?![\w])/;
 export const operatorRegex = /->|\*\*|<=|>=|->|:=|[+\-*/<>=^:]|(?<!\w)(not|and|or|xor|div|mod|shr|shl)(?!\w)|(?<=\s)in(?=\s)/;
 export const moduleSubRegex = /(?<=(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)\.)\w+(?![^\s()])/;
 export const moduleRegex = /(?<![\w])(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)(?![^.])/;
-export const keywordRegex = /(?<![\w])self(?=[.\s)])|(?<![\w])(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|else|elsif|implement|import|loop|new|open|put|procedure|proc|quit|read)\s|(?<=\s)(break|end|exit|label|of|pre|post|result|to|return|when|then)(?=\s)/;
-// export const keywordRegex = /(?<![\w])self(?=[.\s)])|(?<![\w])(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|else|elsif|implement|import|loop|new|open|put|procedure|proc|quit|read)\s|(?<=\s)(break|end|exit|label|of|pre|post|result|to|return|when|then)(?=\s)/;
+export const keywordRegex = /(?<![^:\s])(real|int|boolean|string|array|nat|char)|(?<![\w])self(?=[.\s)])|(?<![\w])(assert|var|const|bind|case|close|export|end|for|free|function|fcn|get|handler|if|inherit|else|elsif|implement|by|import|loop|new|open|put|procedure|proc|quit|read)(?![^\s(])|(?<![^\s(])(break|end|exit|label|of|pre|post|result|to|return|when|then|deferred|forward|flexible|pervasive|unqualified|class|pointer|module|monitor|unit|true|false|nil)(?![^\s)])/;
+export const numberRegex = /(?<![^\d\\(\s.,])-?\d+(\.\d+)?(?![^\d)\s.,])/;
+export const stringRegex = /(?<!\\)".+[^\\]"/;
 export function hover(descText : string, turingText? : string, prefixText? : string, parameters? : string[], parameterDesc? : string[], returnsDesc? : string) {
 	const hovers : vscode.MarkdownString[] = [];
 	hovers.push(new vscode.MarkdownString());
