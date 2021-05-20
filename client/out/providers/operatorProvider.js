@@ -1,8 +1,61 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.operatorProvider = void 0;
+exports.operatorProvider = exports.operatorHoverProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+const hoverCompletions_1 = require("./hover/hoverCompletions");
+exports.operatorHoverProvider = vscode.languages.registerHoverProvider('t', {
+    provideHover(doc, pos) {
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.operatorRegex);
+        const word = doc.getText(range);
+        if (word === '+')
+            return hoverCompletions_1.hover('Addition/concatenation operator');
+        else if (word === '-')
+            return hoverCompletions_1.hover('Subtraction operator');
+        else if (word === '*')
+            return hoverCompletions_1.hover('Multiplication operator');
+        else if (word === '/')
+            return hoverCompletions_1.hover('Decimal division operator');
+        else if (word === '**')
+            return hoverCompletions_1.hover('Exponent operator');
+        else if (word === '<')
+            return hoverCompletions_1.hover('Less than operator');
+        else if (word === '>')
+            return hoverCompletions_1.hover('Greater than operator');
+        else if (word === '=')
+            return hoverCompletions_1.hover('Is equal operator');
+        else if (word === '<=')
+            return hoverCompletions_1.hover('Less or equal to operator');
+        else if (word === '>=')
+            return hoverCompletions_1.hover('Greater or equal to operator');
+        else if (word === 'not')
+            return hoverCompletions_1.hover('Bool not operator');
+        else if (word === 'and')
+            return hoverCompletions_1.hover('Bool and operator');
+        else if (word === 'or')
+            return hoverCompletions_1.hover('Bool or operator');
+        else if (word === 'xor')
+            return hoverCompletions_1.hover('Bool xor operator');
+        else if (word === 'div')
+            return hoverCompletions_1.hover('Floor division operator');
+        else if (word === 'mod')
+            return hoverCompletions_1.hover('Modulo operator');
+        else if (word === 'shr')
+            return hoverCompletions_1.hover('Shift right operator');
+        else if (word === 'shl')
+            return hoverCompletions_1.hover('Shift left operator');
+        else if (word === 'in')
+            return hoverCompletions_1.hover('In operator');
+        else if (word === '^')
+            return hoverCompletions_1.hover('Pointer operator');
+        else if (word === ':')
+            return hoverCompletions_1.hover('Datatype operator');
+        else if (word === '->')
+            return hoverCompletions_1.hover('Access property operator');
+        else if (word === ':=')
+            return hoverCompletions_1.hover('Set operator');
+    }
+});
 exports.operatorProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
@@ -27,6 +80,8 @@ exports.operatorProvider = vscode.languages.registerCompletionItemProvider('t', 
         completionArray.push(completions_1.operatorCompletion('shr', 'The shr (shift right) operator produces the value of A shifted B bits to the right. Both A and B must be non-negative integers (natural numbers)', 'Shift right'));
         completionArray.push(completions_1.operatorCompletion('shl', 'The shl (shift left) operator produces the value of A shifted B bits to the left. Both A and B must be non-negative integers (natural numbers)', 'Shift left'));
         completionArray.push(completions_1.operatorCompletion('in', 'The in operator determines if an element is in a set', 'in set operator'));
+        completionArray.push(completions_1.operatorCompletion(':=', 'The set operator sets a variable to a following value', 'Set operator'));
+        completionArray.push(completions_1.operatorCompletion('->', 'The access operator allows the methods and properties of a class instance to be accessed', 'Access operator'));
         return completionArray;
     }
 }, '');

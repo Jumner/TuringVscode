@@ -82,7 +82,11 @@
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=Dir.)(Open|GetLong|Get|Close|Create|Delete|Change|Current|Exists)"
+					"match": "(?<=Dir.)(Open|GetLong|Get|Close|Create|Delete|Change|Exists)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Dir.)(Current)"
 				},
 				{
 					"name": "support.function.t",
@@ -90,7 +94,11 @@
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=Error.)(LastMsg|LastStr|Last|Msg|Str|TripMsg|Trip|Halt)"
+					"match": "(?<=Error.)(Msg|Str|TripMsg|Trip|Halt)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Error.)(LastMsg|LastStr|Last)"
 				},
 				{
 					"name": "support.function.t",
@@ -98,7 +106,7 @@
 				},
 				{
 					"name": "variable.other.property.t",
-					"match": "(?<=Limits.)(DefaultFW|DefaultEW|minint|maxint|minnat|maxnat|Radix|NumDigits|MinExp|MaxExp|Rreb)"
+					"match": "(?<=Limits.)(DefaultFW|DefaultEW|Radix|NumDigits|MinExp|MaxExp|Rreb)|minint|maxint|minnat|maxnat"
 				},
 				{
 					"name": "support.function.t",
@@ -122,7 +130,11 @@
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=Net.)(WaitForConnection|OpenConnection|OpenURLConnection|CloseConnection|BytesAvailable|CharAvailable|LineAvailable|TokenAvailable|HostAddressFromName|HostNameFromAddress|LocalAddress|LocalName)"
+					"match": "(?<=Net.)(WaitForConnection|OpenConnection|OpenURLConnection|CloseConnection|BytesAvailable|CharAvailable|LineAvailable|TokenAvailable|HostAddressFromName|HostNameFromAddress)"
+				},
+				{
+					"name": "variable.other.property.t",
+					"match": "(?<=Net.)(LocalAddress|LocalName)"
 				},
 				{
 					"name": "support.function.t",
@@ -146,7 +158,11 @@
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=Sys.)(GetComputerName|GetEnv|GetPid|GetUserName|Exec|Nargs|FetchArg)"
+					"match": "(?<=Sys.)(GetComputerName|GetEnv|GetPid|GetUserName|Exec|FetchArg)"
+				},
+				{
+					"name": "support.function.t",
+					"match": "(?<=Sys.)(Nargs)"
 				},
 				{
 					"name": "support.function.t",
@@ -154,7 +170,7 @@
 				},
 				{
 					"name": "variable.other.property.t",
-					"match": "(?<=Text.)(WhatRow|WhatCol|WhatColour|WhatColourBack)"
+					"match": "(?<=Text.)(WhatRow|WhatColourBack|WhatColour|WhatCol)"
 				},
 				{
 					"name": "support.function.t",
@@ -162,11 +178,11 @@
 				},
 				{
 					"name": "variable.other.property.t",
-					"match": "(?<=Time.)(Sec|Date|Elapsed|ElapsedCPU)"
+					"match": "(?<=Time.)(Sec|Date|ElapsedCPU|Elapsed)"
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=View.)(Set|ClipSet|ClipAddOval|ClipAdd|WhatDotColour|UpdateArea|Update|SetTransparentColour)"
+					"match": "(?<=View.)(Set|ClipSet|ClipAddOval|ClipAdd|ClipOff|WhatDotColour|UpdateArea|Update)"
 				},
 				{
 					"name": "variable.other.property.t",
@@ -174,7 +190,7 @@
 				},
 				{
 					"name": "support.function.t",
-					"match": "(?<=Window.)(Open|Close|Select|GetSelect|SetActive|GetActive|GetPosition|SetPosition|Hide|Show|Set|Update)"
+					"match": "(?<=Window.)(Open|Close|GetSelect|Select|SetActive|GetActive|GetPosition|SetPosition|Hide|Show|Set|Update)"
 				}
 			]
 		},
@@ -207,7 +223,7 @@
 		},
 		"numbers": {
 			"name": "keyword.other.unit.suffix.integer.t",
-			"match": "(?<=(\\d|\\(|\\s|\\.\\.|,))\\-?\\d+(\\.\\d+)?(?=(\\d|\\)|\\s|\\.|,))|true|false|nil"
+			"match": "(?<![^\\d\\(\\s\\.,])\\-?\\d+(\\.\\d+)?(?![^\\d\\)\\s\\.,])|true|false|nil"
 		},
 		"classes": {
 			"name": "entity.name.type.t",
@@ -215,7 +231,7 @@
 		},
 		"modules": {
 			"name": "entity.name.class",
-			"match": "(?=>[^\\w])(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)"
+			"match": "(?<![\\w])(Config|Dir|Draw|Error|File|Limits|Input|Math|Mouse|Music|Net|PC|Rand|RGB|Stream|Str|Sys|Text|Time|View|Window)"
 		},
 		"operators": {
 			"patterns": [{

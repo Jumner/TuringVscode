@@ -1,5 +1,18 @@
 import * as vscode from 'vscode';
 import { functionCompletion } from "./completions";
+import { hover, wordRgx } from './hover/hoverCompletions';
+
+export const functionHoverProvider = vscode.languages.registerHoverProvider(
+	't',
+	{
+		provideHover(doc : vscode.TextDocument, pos : vscode.Position) {
+			const range = doc.getWordRangeAtPosition(pos, wordRgx);
+			const word = doc.getText(range);
+			if(word === '') return hover('');
+			// else if(word === '') return hover('');
+		}
+	}
+);
 
 export const functionProvider = vscode.languages.registerCompletionItemProvider(
 	't',

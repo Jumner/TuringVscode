@@ -1,10 +1,23 @@
 import * as vscode from 'vscode';
 import { constantCompletion } from './completions';
+import { hover, wordRgx } from './hover/hoverCompletions';
+
+export const constantHoverProvider = vscode.languages.registerHoverProvider(
+	't',
+	{
+		provideHover(doc : vscode.TextDocument, pos : vscode.Position) {
+			const range = doc.getWordRangeAtPosition(pos, wordRgx);
+			const word = doc.getText(range);
+			if(word === '') return hover('');
+			// else if(word === '') return hover('');
+		}
+	}
+);
 
 export const constantProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
-		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+		provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position) {
 			const completionArray = [];
 			
 

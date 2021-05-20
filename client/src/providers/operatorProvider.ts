@@ -1,5 +1,39 @@
 import * as vscode from 'vscode';
 import { operatorCompletion } from './completions';
+import { hover, operatorRegex } from './hover/hoverCompletions';
+
+export const operatorHoverProvider = vscode.languages.registerHoverProvider(
+	't',
+	{
+		provideHover(doc : vscode.TextDocument, pos : vscode.Position) {
+			const range = doc.getWordRangeAtPosition(pos, operatorRegex);
+			const word = doc.getText(range);
+			if(word === '+') return hover('Addition/concatenation operator');
+			else if(word === '-') return hover('Subtraction operator');
+			else if(word === '*') return hover('Multiplication operator');
+			else if(word === '/') return hover('Decimal division operator');
+			else if(word === '**') return hover('Exponent operator');
+			else if(word === '<') return hover('Less than operator');
+			else if(word === '>') return hover('Greater than operator');
+			else if(word === '=') return hover('Is equal operator');
+			else if(word === '<=') return hover('Less or equal to operator');
+			else if(word === '>=') return hover('Greater or equal to operator');
+			else if(word === 'not') return hover('Bool not operator');
+			else if(word === 'and') return hover('Bool and operator');
+			else if(word === 'or') return hover('Bool or operator');
+			else if(word === 'xor') return hover('Bool xor operator');
+			else if(word === 'div') return hover('Floor division operator');
+			else if(word === 'mod') return hover('Modulo operator');
+			else if(word === 'shr') return hover('Shift right operator');
+			else if(word === 'shl') return hover('Shift left operator');
+			else if(word === 'in') return hover('In operator');
+			else if(word === '^') return hover('Pointer operator');
+			else if(word === ':') return hover('Datatype operator');
+			else if(word === '->') return hover('Access property operator');
+			else if(word === ':=') return hover('Set operator');
+		}	
+	}
+);
 
 export const operatorProvider = vscode.languages.registerCompletionItemProvider(
 	't',
@@ -126,6 +160,18 @@ export const operatorProvider = vscode.languages.registerCompletionItemProvider(
 				'in',
 				'The in operator determines if an element is in a set',
 				'in set operator'
+			));
+
+			completionArray.push(operatorCompletion(
+				':=',
+				'The set operator sets a variable to a following value',
+				'Set operator'
+			));
+
+			completionArray.push(operatorCompletion(
+				'->',
+				'The access operator allows the methods and properties of a class instance to be accessed',
+				'Access operator'
 			));
 
 			return completionArray;

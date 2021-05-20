@@ -1,8 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.functionProvider = void 0;
+exports.functionProvider = exports.functionHoverProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+const hoverCompletions_1 = require("./hover/hoverCompletions");
+exports.functionHoverProvider = vscode.languages.registerHoverProvider('t', {
+    provideHover(doc, pos) {
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.wordRgx);
+        const word = doc.getText(range);
+        if (word === '')
+            return hoverCompletions_1.hover('');
+        // else if(word === '') return hover('');
+    }
+});
 exports.functionProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];

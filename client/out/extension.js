@@ -64,6 +64,7 @@ function activate(context) {
         }
     }));
     context.subscriptions.push(functionProvider_1.functionProvider, moduleProvider_1.moduleProvider, constantProvider_1.constantProvider, keywordProvider_1.keywordProvider, operatorProvider_1.operatorProvider, userProvider_1.userProvider);
+    context.subscriptions.push(constantProvider_1.constantHoverProvider, functionProvider_1.functionHoverProvider, keywordProvider_1.keywordHoverProvider, moduleProvider_1.moduleHoverProvider, operatorProvider_1.operatorHoverProvider);
     // Language server
     const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
     const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };

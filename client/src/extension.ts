@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 import { platform, tmpdir } from 'os';
-import { moduleProvider } from './providers/moduleProvider';
-import { functionProvider} from './providers/functionProvider';
-import { constantProvider } from './providers/constantProvider';
-import { keywordProvider } from './providers/keywordProvider';
-import { operatorProvider } from './providers/operatorProvider';
+import { moduleHoverProvider, moduleProvider } from './providers/moduleProvider';
+import { functionHoverProvider, functionProvider} from './providers/functionProvider';
+import { constantHoverProvider, constantProvider } from './providers/constantProvider';
+import { keywordHoverProvider, keywordProvider } from './providers/keywordProvider';
+import { operatorHoverProvider, operatorProvider } from './providers/operatorProvider';
 import { userProvider } from './providers/userProvider';
 import * as path from 'path';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
@@ -66,6 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}));
 	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider, userProvider);
+	context.subscriptions.push(constantHoverProvider, functionHoverProvider, keywordHoverProvider, moduleHoverProvider, operatorHoverProvider);
 
 	// Language server
 	const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
