@@ -115,14 +115,6 @@ exports.moduleHoverProvider = vscode.languages.registerHoverProvider('t', {
             else if (sWord === 'DiskFree')
                 return hoverCompletions_1.hover('File.DiskFree gets the number of bytes for the disk upon which pathName resides. The pathName parameter can specify either a file or a directory. If it is the empty string, then File.DiskFree returns the number of bytes of free disk space on the disk upon which the execution directory resides', 'File.DiskFree (pathName : string) : int', '(Function)', ['pathName'], ['Path to file'], 'Bytes of free space (2gb max)');
         }
-        else if (sWord === 'minint')
-            return hoverCompletions_1.hover('The minimum integer in Turing', 'minint', '(Constant)');
-        else if (sWord === 'maxint')
-            return hoverCompletions_1.hover('The maximum integer in Turing', 'maxint', '(Constant)');
-        else if (sWord === 'minnat')
-            return hoverCompletions_1.hover('The minimum natural number in Turing', 'minnat', '(Constant)');
-        else if (sWord === 'maxnat')
-            return hoverCompletions_1.hover('The maximum natural number in Turing', 'maxnat', '(Constant)');
         else if (line.search(/(?<=Limits.)(DefaultFW|DefaultEW|Radix|NumDigits|MinExp|MaxExp|Rreb)/) >= 0) {
             if (sWord === 'DefaultFW')
                 return hoverCompletions_1.hover('Default fraction width used in printing using the "put" statement', 'Limits.DefaultFW', '(Constant)');

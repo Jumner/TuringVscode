@@ -68,10 +68,6 @@ export const moduleHoverProvider = vscode.languages.registerHoverProvider(
 				else if(sWord === 'Delete') return hover('File.Delete is used to delete the file specified by the parameter filePathName. This is the equivalent of doing a del in DOS or rm in UNIX', 'File.Delete (filePathName : string)', '(Procedure)', ['filePathName'], ['Path to file to delete']);
 				else if(sWord === 'DiskFree') return hover('File.DiskFree gets the number of bytes for the disk upon which pathName resides. The pathName parameter can specify either a file or a directory. If it is the empty string, then File.DiskFree returns the number of bytes of free disk space on the disk upon which the execution directory resides', 'File.DiskFree (pathName : string) : int', '(Function)', ['pathName'], ['Path to file'], 'Bytes of free space (2gb max)');
 			}
-			else if(sWord === 'minint') return hover('The minimum integer in Turing', 'minint', '(Constant)');
-			else if(sWord === 'maxint') return hover('The maximum integer in Turing', 'maxint', '(Constant)');
-			else if(sWord === 'minnat') return hover('The minimum natural number in Turing', 'minnat', '(Constant)');
-			else if(sWord === 'maxnat') return hover('The maximum natural number in Turing', 'maxnat', '(Constant)');
 			else if(line.search(/(?<=Limits.)(DefaultFW|DefaultEW|Radix|NumDigits|MinExp|MaxExp|Rreb)/) >= 0) {
 				if(sWord === 'DefaultFW') return hover('Default fraction width used in printing using the "put" statement', 'Limits.DefaultFW', '(Constant)');
 				else if(sWord === 'DefaultEW') return hover('Default exponent width used in printing using the "put" statement', 'Limits.DefaultEW', '(Constant)');
@@ -229,7 +225,6 @@ export const moduleHoverProvider = vscode.languages.registerHoverProvider(
 				else if(word == 'View') return hover('This unit contains the predefined subprograms that deal with the current output surface, which is a window', 'View', '(Module)');
 				else if(word == 'Window') return hover('This unit contains the predefined subprograms that handle windows. There are routines to open, close, hide, show and select windows', 'Window', '(Module)');
 			}
-		
 		}
 	}
 );

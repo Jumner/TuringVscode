@@ -6,11 +6,42 @@ const completions_1 = require("./completions");
 const hoverCompletions_1 = require("./hover/hoverCompletions");
 exports.constantHoverProvider = vscode.languages.registerHoverProvider('t', {
     provideHover(doc, pos) {
-        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.wordRgx);
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.constRegex);
         const word = doc.getText(range);
-        if (word === '')
-            return hoverCompletions_1.hover('');
-        // else if(word === '') return hover('');
+        if (range) {
+            if (word === 'maxcol')
+                return hoverCompletions_1.hover('The maxcol function is used to determine the number of columns on the screen', word, '(Constant)');
+            else if (word === 'maxcolour')
+                return hoverCompletions_1.hover('The maxcolour function is used to determine the maximum colour number for the current mode of the screen', word, '(Constant)');
+            else if (word === 'minint')
+                return hoverCompletions_1.hover('The minimum integer in Turing', word, '(Constant)');
+            else if (word === 'maxint')
+                return hoverCompletions_1.hover('The maximum integer in Turing', word, '(Constant)');
+            else if (word === 'minnat')
+                return hoverCompletions_1.hover('The minimum natural number in Turing', word, '(Constant)');
+            else if (word === 'maxnat')
+                return hoverCompletions_1.hover('The maximum natural number in Turing', word, '(Constant)');
+            else if (word === 'maxrow')
+                return hoverCompletions_1.hover('The maxrow function is used to determine the number of rows on the screen', word, '(Constant)');
+            else if (word === 'maxx')
+                return hoverCompletions_1.hover('The maxx function is used to determine the maximum value of x for the current graphics mode', word, '(Constant)');
+            else if (word === 'maxy')
+                return hoverCompletions_1.hover('The maxy function is used to determine the maximum value of y for the current graphics mode', word, '(Constant)');
+            else if (word === 'playdone')
+                return hoverCompletions_1.hover('The playdone function is used to determine when notes played by the play procedure have finished sounding', word, '(Constant)');
+            else if (word === 'whatcol')
+                return hoverCompletions_1.hover('The whatcol function is used to determine the cursor position\'s column', word, '(Constant)');
+            else if (word === 'whatcolourback')
+                return hoverCompletions_1.hover('The whatcolourback function is used to determine the current text background colour', word, '(Constant)');
+            else if (word === 'whatcolour')
+                return hoverCompletions_1.hover('he whatcolour function is used to determine the current text (foreground) colour, ie., the color used for characters that are output using put', word, '(Constant)');
+            else if (word === 'whatrow')
+                return hoverCompletions_1.hover('The whatrow function is used to determine the cursor position\'s row', word, '(Constant)');
+            else if (word === 'simutime')
+                return hoverCompletions_1.hover('The simutime function returns the number of simulated time units that have passed since program execution began', word, '(Constant)');
+            else
+                return hoverCompletions_1.hover('The keycode returned from getch, getchar, and Input.KeyDown', word, '(Keycode)');
+        }
     }
 });
 exports.constantProvider = vscode.languages.registerCompletionItemProvider('t', {
