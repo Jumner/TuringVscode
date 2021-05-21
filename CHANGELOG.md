@@ -1,4 +1,48 @@
-## [Release]
+# Turing Vscode
+
+Turing Vscode (originally Turing Syntax Highlighting) is a language extension that adds syntax highlighting, snippets, basic "debugging" using [OpenTuring](https://github.com/Open-Turing-Project/OpenTuring), and basic autocomplete.
+
+---
+## Features
+- Syntax highlighting which makes it look very pretty.
+- Snippets for remembering the intricacies of the language.
+- No more copy paste, just link to OpenTuring and hit f5 to run it straight from vscode!
+- Basic autocomplete to make writing code faster.
+
+## Requirements
+
+- You must have OpenTuring installed and linked in settings for debugging to work.
+- Wine must be installed if you're on Mac/Linux for debugging to work.
+
+## Extension Settings
+
+Turing Vscode contributes the following settings:
+
+* `tsh.pathToOpenTuring`: This is the absolute path to turing.exe
+
+---
+
+## Known Issues
+
+1. The autocomplete does not suggest module functions and constants without the module prefix.
+2. A few niche functions, keywords and modules are not included. Notably, the Gui module.
+
+## Planned Features
+- General code cleanup and bug fixes
+- Add documentation on hover and when in function brackets
+- Prevent autocomplete from stopping newlines
+- 
+
+## Github Information
+
+- [Github repository](https://github.com/Jumner/TuringVscode)
+
+This is my first Vscode extension and I am pretty new to everything.
+Because of this, [pull requests](https://github.com/Jumner/TuringVscode/pulls) would be greatly appreciated if anyone stumbles into this!
+Please report any [issues](https://github.com/Jumner/TuringVscode/issues) that you run into when using the extension.
+
+
+## Release Notes
 
 ### 0.0.1 (Initial scuffed release)
 
@@ -43,3 +87,12 @@ Debugging should finally be working on windows. Linux and Mac debugging is also 
 - User defined functions, variables, classes, and Class Methods and Properties now autocomplete.
 - User defined items do not autocomplete out of their scope.
 - Class methods and properties still autocomplete without proper prefixes
+
+### 0.0.8 (Hover & General fixes)
+
+- Hovering over most items will give information about it including syntax, parameters, etc...
+- Hovering does not yet work with user defined functions. However, it will be in the next update
+- Server now acts through a named pipe instead of ports which could cause crashing.
+- Marginally improved syntax highlighting
+- Made a distinction between keywords, functions, and constants. "Functions" that take no parameters are usually treated as constants.
+- Some small improvements

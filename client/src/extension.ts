@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 import { platform, tmpdir } from 'os';
-import { moduleHoverProvider, moduleProvider } from './providers/moduleProvider';
-import { functionHoverProvider, functionProvider} from './providers/functionProvider';
-import { constantHoverProvider, constantProvider } from './providers/constantProvider';
-import { keywordHoverProvider, keywordProvider } from './providers/keywordProvider';
-import { operatorHoverProvider, operatorProvider } from './providers/operatorProvider';
+import { moduleProvider } from './providers/moduleProvider';
+import { functionProvider} from './providers/functionProvider';
+import { constantProvider } from './providers/constantProvider';
+import { keywordProvider } from './providers/keywordProvider';
+import { operatorProvider } from './providers/operatorProvider';
+import { moduleHoverProvider, functionHoverProvider, constantHoverProvider, keywordHoverProvider, operatorHoverProvider } from './providers/hover/hoverProvider';
 import { userProvider } from './providers/userProvider';
 import * as path from 'path';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';

@@ -88,7 +88,11 @@ Debugging should finally be working on windows. Linux and Mac debugging is also 
 - User defined items do not autocomplete out of their scope.
 - Class methods and properties still autocomplete without proper prefixes
 
-### 0.0.8 (General fixes)
+### 0.0.8 (Hover & General fixes)
+
+- Hovering over most items will give information about it including syntax, parameters, etc...
+- Hovering does not yet work with user defined functions. However, it will be in the next update
 - Server now acts through a named pipe instead of ports which could cause crashing.
-- Slightly improved syntax highlighting
-- 
+- Marginally improved syntax highlighting
+- Made a distinction between keywords, functions, and constants. "Functions" that take no parameters are usually treated as constants.
+- Some small improvements
