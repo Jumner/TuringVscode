@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 import { functionCompletion, moduleCompletion, variableCompletion } from './completions';
 
+// Module autocomplete
 export const moduleProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
 		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 			const completionArray = [];
 			const linePrefix = document.lineAt(position).text.substr(0, position.character);
-
+			// Check which module its part of
 			if (linePrefix.endsWith('Config.')) {
 				completionArray.push(functionCompletion(
 					'Display',
@@ -959,7 +960,7 @@ export const moduleProvider = vscode.languages.registerCompletionItemProvider(
 					'Update window from offscreen'
 				));
 			}
-
+			// Complete the modules themselves
 			else if (!linePrefix.endsWith('.')){
 				completionArray.push(moduleCompletion(
 					'Config',

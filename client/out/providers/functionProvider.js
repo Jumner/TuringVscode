@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.functionProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+// Built in functions autocomplete
 exports.functionProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
@@ -109,6 +110,7 @@ exports.functionProvider = vscode.languages.registerCompletionItemProvider('t', 
         completionArray.push(completions_1.functionCompletion('upper', 'The upper attribute is used to find the upper bound of an array, string, char(n) or non-opaque subrange type', 'Upper bound of array'));
         completionArray.push(completions_1.functionCompletion('wallclock', 'The wallclock statement is used to determine the time in seconds since 00:00:00 GMT (Greenwich Mean Time) January 1, 1970', 'Time (seconds)'));
         completionArray.push(completions_1.functionCompletion('whatdotcolour', 'The whatdotcolour function is used to determine the colour number of the specified pixel', 'Colour of pixel'));
+        // These are just for testing completion item kind values
         // completionArray.push(new vscode.CompletionItem('TestValue', vscode.CompletionItemKind.Value));
         // completionArray.push(new vscode.CompletionItem('TestClass', vscode.CompletionItemKind.Class));
         // completionArray.push(new vscode.CompletionItem('TestColor', vscode.CompletionItemKind.Color));

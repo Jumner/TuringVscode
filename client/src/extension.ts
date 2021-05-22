@@ -13,13 +13,11 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } f
 import { exec } from 'child_process';
 import { functionHelpProvider } from './providers/sigHelp/sigHelpProvider';
 
-let client : LanguageClient;
+// Main entry point to extension
 
-export function log(text : string) {
-	console.log(text);
-}
+let client : LanguageClient; // Language client for underlining
 
-class configurationProvider implements vscode.DebugConfigurationProvider {
+class configurationProvider implements vscode.DebugConfigurationProvider { // Supply debug configurations
 	resolveDebugConfiguration(folder: WorkspaceFolder | undefined, config: DebugConfiguration, token?: CancellationToken): ProviderResult<DebugConfiguration> {
 		
 		// if launch.json is missing or empty
@@ -45,12 +43,13 @@ class configurationProvider implements vscode.DebugConfigurationProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+	// Entry point to extension
 	if(platform() == 'win32') { // Remove pipes to prevent errors later
 		exec('del ' + tmpdir() + '/errorSocket.sock');
 	} else {
 		exec('rm ' + tmpdir() + '/errorSocket.sock');
 	}
-	const provider = new configurationProvider(); // If no launch.json
+	const provider = new configurationProvider(); // Creating a new launch.json
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
 	context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {
 		provideDebugConfigurations(folder: WorkspaceFolder | undefined): ProviderResult<DebugConfiguration[]> {
@@ -67,6 +66,8 @@ export function activate(context: vscode.ExtensionContext) {
 			];
 		}
 	}));
+
+	// Activate Completions, Hovers, and signatureHelp providers
 	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider, userProvider);
 	context.subscriptions.push(functionHoverProvider, moduleHoverProvider, constantHoverProvider, keywordHoverProvider, operatorHoverProvider);
 	context.subscriptions.push(functionHelpProvider);
@@ -90,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	};
 
-	client = new LanguageClient(
+	client = new LanguageClient( // Create language clients
 		'tsh',
 		serverOptions,
 		clientOptions
@@ -103,5 +104,5 @@ export function deactivate() : Thenable<void> | undefined {
 	if (!client) {
 		return undefined;
 	}
-	return client.stop();
+	return client.stop(); // Stop the language client
 }

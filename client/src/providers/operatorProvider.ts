@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 import { operatorCompletion } from './completions';
 
+// Operator autocomplete
 export const operatorProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
 		provideCompletionItems(document : vscode.TextDocument, position : vscode.Position) {
 			const completionArray = [];
-			const linePrefix = document.lineAt(position).text.substr(0, position.character);
-
+			
+			// Add all the completions
 			completionArray.push(operatorCompletion(
 				'+',
 				'Two strings (stringExpns), char or char(n) values can be joined together (catenated) using the + operator',

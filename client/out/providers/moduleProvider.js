@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.moduleProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+// Module autocomplete
 exports.moduleProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
         const linePrefix = document.lineAt(position).text.substr(0, position.character);
+        // Check which module its part of
         if (linePrefix.endsWith('Config.')) {
             completionArray.push(completions_1.functionCompletion('Display', 'Config.Display returns information about the display (or displays) attached to the computer. The parameter displayCode determines what sort of information is passed back', 'Display properties'));
             completionArray.push(completions_1.functionCompletion('Lang', 'Config.Lang returns information about the language and the limitations of the implementation that the program is currently running. The parameter langCode determines what sort of information is passed back', 'Current turing version'));
@@ -203,6 +205,7 @@ exports.moduleProvider = vscode.languages.registerCompletionItemProvider('t', {
             completionArray.push(completions_1.functionCompletion('Set', 'The Window.Set procedure sets the configuration of the window specified by the windowID parameter. See View.Set for a complete list of available options. The setUpString parameter can be any combination options, separated by commas. Here is a selection of the available options', 'Set window properties'));
             completionArray.push(completions_1.functionCompletion('Update', 'The Window.Update procedure updates a specified Run window from an offscreen bitmap. It is used with the command View.Set("offscreenonly") which prevents the Run window from being updated until the Window.Update command is given', 'Update window from offscreen'));
         }
+        // Complete the modules themselves
         else if (!linePrefix.endsWith('.')) {
             completionArray.push(completions_1.moduleCompletion('Config', 'This unit contains the predefined subprograms that deal with getting configuration information about the machine and environment on which the program is being run', 'Machine properties'));
             completionArray.push(completions_1.moduleCompletion('Dir', 'This unit contains the predefined subprograms that deal with directories. You can use these subprograms to list the contents of directories, create directories, change directories and return the current directory', 'Manages current directory'));

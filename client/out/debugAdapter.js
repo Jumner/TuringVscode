@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Net = require("net");
 const turingDebugger_1 = require("./turingDebugger");
+// Entry point to debug adapter
 // first parse command line arguments to see whether the debug adapter should run as a server
 let port = 0;
 const args = process.argv.slice(2);

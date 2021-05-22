@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { keywordCompletion } from './completions';
 
+// Keyword autocomplete
 export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
@@ -303,24 +304,23 @@ export const keywordProvider = vscode.languages.registerCompletionItemProvider(
 				'Read file'
 			));
 
-			for(let i = position.line; i >= 0; i --) {
-				if(document.lineAt(i).text.includes('function')) {
+			for(let i = position.line; i >= 0; i --) { // Go from current line until the last function or procedure definition
+				if(document.lineAt(i).text.includes('function')) { // If the last one was a function complete result
 					completionArray.push(keywordCompletion(
 						'result',
 						'A result statement, which must appear only in a function, is used to provide the value of the function',
 						'Result of function'
 					));
-					break;
-				} else if(document.lineAt(i).text.includes('procedure')) {
+					break; // Break out as we don't need to check the whole thing
+				} else if(document.lineAt(i).text.includes('procedure')) { // If the last one was a procedure complete return
 					completionArray.push(keywordCompletion(
 						'return',
 						'A return statement terminates the procedure (or main program) in which it appears. Ordinarily, a procedure (or main program) terminates by reaching its end; the return statement is used to cause early termination',
 						'Terminate procedure'
 					));
-					break;
+					break; // Break out as we don't need to check the whole thing
 				}
 			}
-
 
 			completionArray.push(keywordCompletion(
 				'self',

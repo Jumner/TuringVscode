@@ -20,12 +20,13 @@ const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasDiagnosticRelatedInformationCapability = false;
 
-const errorServer = createServer(stream => {
-	stream.on('data', d => {
-		const data = JSON.parse(d.toString());
+const errorServer = createServer(stream => { // Server for underlining errors
+	stream.on('data', d => { // Grab data
+		const data = JSON.parse(d.toString()); // Parse it into json
 		const diagnostics : Diagnostic[] = [];
+		// Foreach error
 		data.errors.forEach((err : {line : number, startChar : number, endChar : number, type : string, full : string}) => {
-			const diagnostic: Diagnostic = {
+			const diagnostic: Diagnostic = { // Create a new diagnostic
 				severity: DiagnosticSeverity.Error,
 				range: {
 					start: { line: err.line, character: err.startChar },
@@ -33,7 +34,7 @@ const errorServer = createServer(stream => {
 				},
 				message: err.type,
 			};
-			if (hasDiagnosticRelatedInformationCapability) {
+			if (hasDiagnosticRelatedInformationCapability) { // Add additional data if possible
 				diagnostic.relatedInformation = [
 					{
 						location: {
@@ -44,9 +45,9 @@ const errorServer = createServer(stream => {
 					}
 				];
 			}
-			diagnostics.push(diagnostic);
+			diagnostics.push(diagnostic); // Add it to pool
 		});
-		connection.sendDiagnostics({ uri: data.uri, diagnostics });
+		connection.sendDiagnostics({ uri: data.uri, diagnostics }); // Send underlines
 	});
 });
 
@@ -67,9 +68,9 @@ connection.onInitialize((params: InitializeParams) => {
 	return result;
 });
 
-documents.onDidChangeContent(change => {
+documents.onDidChangeContent(change => { // Clear diagnostics on change so they dont linger
 	connection.sendDiagnostics({ uri: change.document.uri, diagnostics: [] });
 });
 
-documents.listen(connection);
+documents.listen(connection); // Listen on lang server
 connection.listen();

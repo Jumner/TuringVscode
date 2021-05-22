@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.keywordProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+// Keyword autocomplete
 exports.keywordProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
@@ -58,14 +59,14 @@ exports.keywordProvider = vscode.languages.registerCompletionItemProvider('t', {
         completionArray.push(completions_1.keywordCompletion('put', 'The put statement outputs each of the putItems. Usually, a new line is started in the output after the final putItem. If the optional dot-dot (..) is present, though, subsequent output will be continued on the current output line. With character graphics, the omission of dot-dot causes the remainder of the output line to be cleared to blanks', 'Output to the screen'));
         completionArray.push(completions_1.keywordCompletion('quit', 'The quit statement causes a program (or concurrent process) to fail. The failure (called an exception) either aborts the program (or process) or causes control to be passed to an exception handler', 'Halt the program'));
         completionArray.push(completions_1.keywordCompletion('read', 'The read statement inputs each of the readItems from the specified file. These items are input directly using the binary format that they have on the file. In other words, the items are not in source (ASCII or EBCDIC) format. In the common case, these items have been output to the file using the write statement', 'Read file'));
-        for (let i = position.line; i >= 0; i--) {
-            if (document.lineAt(i).text.includes('function')) {
+        for (let i = position.line; i >= 0; i--) { // Go from current line until the last function or procedure definition
+            if (document.lineAt(i).text.includes('function')) { // If the last one was a function complete result
                 completionArray.push(completions_1.keywordCompletion('result', 'A result statement, which must appear only in a function, is used to provide the value of the function', 'Result of function'));
-                break;
+                break; // Break out as we don't need to check the whole thing
             }
-            else if (document.lineAt(i).text.includes('procedure')) {
+            else if (document.lineAt(i).text.includes('procedure')) { // If the last one was a procedure complete return
                 completionArray.push(completions_1.keywordCompletion('return', 'A return statement terminates the procedure (or main program) in which it appears. Ordinarily, a procedure (or main program) terminates by reaching its end; the return statement is used to cause early termination', 'Terminate procedure'));
-                break;
+                break; // Break out as we don't need to check the whole thing
             }
         }
         completionArray.push(completions_1.keywordCompletion('self', 'The self function produces a pointer to the current object. This function can be used only inside a class declaration. See class', 'Pointer to this object'));

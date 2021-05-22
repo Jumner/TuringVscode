@@ -3,12 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.operatorHoverProvider = exports.moduleHoverProvider = exports.keywordHoverProvider = exports.functionHoverProvider = exports.constantHoverProvider = void 0;
 const vscode = require("vscode");
 const hoverCompletions_1 = require("./hoverCompletions");
+// All the hover providers
 exports.constantHoverProvider = vscode.languages.registerHoverProvider('t', {
     provideHover(doc, pos) {
-        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.constRegex);
-        const word = doc.getText(range);
-        if (range) {
-            switch (word) {
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.constRegex); // Get words based off constants
+        const word = doc.getText(range); // Get that word
+        if (range) { // If there was a match
+            switch (word) { // Switch to find which one
                 case 'maxcol': return hoverCompletions_1.hover('The maxcol function is used to determine the number of columns on the screen', word, '(Constant)');
                 case 'maxcolour': return hoverCompletions_1.hover('The maxcolour function is used to determine the maximum colour number for the current mode of the screen', word, '(Constant)');
                 case 'minint': return hoverCompletions_1.hover('The minimum integer in Turing', word, '(Constant)');
@@ -31,10 +32,10 @@ exports.constantHoverProvider = vscode.languages.registerHoverProvider('t', {
 });
 exports.functionHoverProvider = vscode.languages.registerHoverProvider('t', {
     provideHover(doc, pos) {
-        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.functionRegex);
-        const word = doc.getText(range);
-        if (range) {
-            switch (word) {
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.functionRegex); // Get words based on functions
+        const word = doc.getText(range); // Get that word
+        if (range) { // If there was a match
+            switch (word) { // Find match
                 case 'abs': return hoverCompletions_1.hover('The abs function is used to find the absolute value of a number', 'abs (expn : real) : real', '(Function)', ['expn'], ['Input positive or negative number'], 'Output positive number, absolute of `expn`');
                 case 'arccosd': return hoverCompletions_1.hover('The arccosd function is used to find the arc cosine of an angle given in degrees', 'arccosd (r : real) : real', '(Function)', ['r'], ['Input cosine ratio'], 'Output angle (degrees)');
                 case 'arccos': return hoverCompletions_1.hover('The arccos function is used to find the arc cosine of a value. The result is given in radians', 'arccos (r : real) : real', '(Function)', ['r'], ['Input cosine ratio'], 'Output angle (radians)');
@@ -134,10 +135,10 @@ exports.functionHoverProvider = vscode.languages.registerHoverProvider('t', {
 });
 exports.keywordHoverProvider = vscode.languages.registerHoverProvider('t', {
     provideHover(doc, pos) {
-        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.keywordRegex);
-        const word = doc.getText(range);
-        const numRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.numberRegex);
-        const stringRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.stringRegex);
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.keywordRegex); // Get words based on keywords
+        const word = doc.getText(range); // get that word
+        const numRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.numberRegex); // Get words based on if theyre a number
+        const stringRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.stringRegex); // Get words based on if theyre a string
         if (stringRange) { // Hovering on string
             return hoverCompletions_1.hover('Strings store word information. These can be used to store any data with and can be parsed to other datatypes', doc.getText(stringRange) + ' : string', '(Value)');
         }
@@ -147,7 +148,7 @@ exports.keywordHoverProvider = vscode.languages.registerHoverProvider('t', {
             return hoverCompletions_1.hover('Numbers store numeric information. There are 3 main datatypes. Either real which can contain decimals, integer which can contain all positive and negative numbers, and nat. Natural numbers are only positive and do include 0', code, '(Value)');
         }
         else if (range) { // Got a keyword
-            switch (word) {
+            switch (word) { // Find match
                 case 'int': return hoverCompletions_1.hover('The int (integer) type has the values … 2, 1, 0, 1, 2 … Integers can be combined by various operators such as addition (+) and multiplication (*). Integers can also be combined with real numbers, in which case the result is generally a real number. An integer can always be assigned to a real variable, with implicit conversion to real', 'int', '(Datatype)');
                 case 'real': return hoverCompletions_1.hover('The real number type is used for numbers that have fractional parts, for example, 3.14159. Real numbers can be combined by various operators such as addition (+) and multiplication (*). Real numbers can also be combined with integers (whole numbers, such as 23, 0 and -9), in which case the result is generally a real number. An integer can always be assigned to a real variable, with implicit conversion to real', 'real', '(Datatype)');
                 case 'string': return hoverCompletions_1.hover('Each variable whose type is a stringType can contain a sequence (a string ) of characters. The length of this sequence must not exceed the stringType\'s maximum length', 'string', '(Datatype)');
@@ -213,11 +214,12 @@ exports.keywordHoverProvider = vscode.languages.registerHoverProvider('t', {
 });
 exports.moduleHoverProvider = vscode.languages.registerHoverProvider('t', {
     provideHover(doc, pos) {
-        const subRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.moduleSubRegex);
-        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.moduleRegex);
-        const sWord = doc.getText(subRange);
-        const word = doc.getText(range);
-        const line = doc.lineAt(pos).text;
+        const subRange = doc.getWordRangeAtPosition(pos, hoverCompletions_1.moduleSubRegex); // Get words based on module functions
+        const range = doc.getWordRangeAtPosition(pos, hoverCompletions_1.moduleRegex); // Get words based on modules
+        const sWord = doc.getText(subRange); // Get that word
+        const word = doc.getText(range); // Get that word
+        const line = doc.lineAt(pos).text; // Get hovered line
+        // Match Modules and their methods
         if (line.search(/(?<=Config.)(Display|Lang|Machine)/) >= 0) {
             switch (sWord) {
                 case 'Display': return hoverCompletions_1.hover('Config.Display returns information about the display (or displays) attached to the computer. The parameter displayCode determines what sort of information is passed back', 'Config.Display (displayCode : int) : int', '(Function)', ['displayCode'], ['Info to return. Either: cdScreenHeight, cdScreenWidth, cdMaxNumColors, or cdMaxNumColours'], 'Information about the display');

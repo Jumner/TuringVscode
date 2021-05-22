@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.operatorProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("./completions");
+// Operator autocomplete
 exports.operatorProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
-        const linePrefix = document.lineAt(position).text.substr(0, position.character);
+        // Add all the completions
         completionArray.push(completions_1.operatorCompletion('+', 'Two strings (stringExpns), char or char(n) values can be joined together (catenated) using the + operator', 'Concatenation of 2 strings'));
         completionArray.push(completions_1.operatorCompletion('+', 'Adds two variables of either real, nat, or int type', 'Add 2 numbers'));
         completionArray.push(completions_1.operatorCompletion('-', 'Subtracts one number from another to produce a result of type real or int', 'Subtraction'));

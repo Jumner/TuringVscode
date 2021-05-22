@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deactivate = exports.activate = exports.log = void 0;
+exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 const os_1 = require("os");
 const moduleProvider_1 = require("./providers/moduleProvider");
@@ -14,11 +14,8 @@ const path = require("path");
 const node_1 = require("vscode-languageclient/node");
 const child_process_1 = require("child_process");
 const sigHelpProvider_1 = require("./providers/sigHelp/sigHelpProvider");
-let client;
-function log(text) {
-    console.log(text);
-}
-exports.log = log;
+// Main entry point to extension
+let client; // Language client for underlining
 class configurationProvider {
     resolveDebugConfiguration(folder, config, token) {
         // if launch.json is missing or empty
@@ -42,13 +39,14 @@ class configurationProvider {
     }
 }
 function activate(context) {
+    // Entry point to extension
     if (os_1.platform() == 'win32') { // Remove pipes to prevent errors later
         child_process_1.exec('del ' + os_1.tmpdir() + '/errorSocket.sock');
     }
     else {
         child_process_1.exec('rm ' + os_1.tmpdir() + '/errorSocket.sock');
     }
-    const provider = new configurationProvider(); // If no launch.json
+    const provider = new configurationProvider(); // Creating a new launch.json
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', provider));
     context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('turing', {
         provideDebugConfigurations(folder) {
@@ -65,6 +63,7 @@ function activate(context) {
             ];
         }
     }));
+    // Activate Completions, Hovers, and signatureHelp providers
     context.subscriptions.push(functionProvider_1.functionProvider, moduleProvider_1.moduleProvider, constantProvider_1.constantProvider, keywordProvider_1.keywordProvider, operatorProvider_1.operatorProvider, userProvider_1.userProvider);
     context.subscriptions.push(hoverProvider_1.functionHoverProvider, hoverProvider_1.moduleHoverProvider, hoverProvider_1.constantHoverProvider, hoverProvider_1.keywordHoverProvider, hoverProvider_1.operatorHoverProvider);
     context.subscriptions.push(sigHelpProvider_1.functionHelpProvider);
@@ -85,7 +84,8 @@ function activate(context) {
             fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
         }
     };
-    client = new node_1.LanguageClient('tsh', serverOptions, clientOptions);
+    client = new node_1.LanguageClient(// Create language clients
+    'tsh', serverOptions, clientOptions);
     client.start();
 }
 exports.activate = activate;
@@ -93,7 +93,7 @@ function deactivate() {
     if (!client) {
         return undefined;
     }
-    return client.stop();
+    return client.stop(); // Stop the language client
 }
 exports.deactivate = deactivate;
 //# sourceMappingURL=extension.js.map

@@ -12,8 +12,9 @@ const documents = new node_1.TextDocuments(vscode_languageserver_textdocument_1.
 let hasDiagnosticRelatedInformationCapability = false;
 const errorServer = net_1.createServer(stream => {
     stream.on('data', d => {
-        const data = JSON.parse(d.toString());
+        const data = JSON.parse(d.toString()); // Parse it into json
         const diagnostics = [];
+        // Foreach error
         data.errors.forEach((err) => {
             const diagnostic = {
                 severity: node_1.DiagnosticSeverity.Error,
@@ -23,7 +24,7 @@ const errorServer = net_1.createServer(stream => {
                 },
                 message: err.type,
             };
-            if (hasDiagnosticRelatedInformationCapability) {
+            if (hasDiagnosticRelatedInformationCapability) { // Add additional data if possible
                 diagnostic.relatedInformation = [
                     {
                         location: {
@@ -34,9 +35,9 @@ const errorServer = net_1.createServer(stream => {
                     }
                 ];
             }
-            diagnostics.push(diagnostic);
+            diagnostics.push(diagnostic); // Add it to pool
         });
-        connection.sendDiagnostics({ uri: data.uri, diagnostics });
+        connection.sendDiagnostics({ uri: data.uri, diagnostics }); // Send underlines
     });
 });
 errorServer.listen(os_1.tmpdir() + '/errorSocket.sock'); // Mathew Bain sock
@@ -55,6 +56,6 @@ connection.onInitialize((params) => {
 documents.onDidChangeContent(change => {
     connection.sendDiagnostics({ uri: change.document.uri, diagnostics: [] });
 });
-documents.listen(connection);
+documents.listen(connection); // Listen on lang server
 connection.listen();
 //# sourceMappingURL=server.js.map

@@ -29,19 +29,19 @@ class DebugSession extends vscode_debugadapter_1.LoggingDebugSession {
         // notify the launchRequest that configuration has finished
         this._configurationDone.notify();
     }
+    // On launch
     async launchRequest(response, args) {
         vscode_debugadapter_1.logger.setup(vscode_debugadapter_1.Logger.LogLevel.Stop, false);
         await this._configurationDone.wait(1000);
-        await this._runtime.start(args.program, args.turingPath, args.useWine);
+        await this._runtime.start(args.program, args.turingPath, args.useWine); // Start it and pass in launch.json args
         this.sendResponse(response);
     }
     async disconnectRequest(response, args) {
-        // Fuck this, no seriously, fuck it.
-        // Its not terminateRequest or cancelRequest its disconnectRequest
-        // Maybe I just need more sleep and more documentation
+        // Quit turing if user clicks quit
         this._runtime.quit();
     }
     async restartRequest(response, args) {
+        // Restart turing if user clicks restart
         this._runtime.restart();
     }
 }

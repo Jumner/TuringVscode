@@ -1,6 +1,8 @@
 import * as Net from 'net';
 import { DebugSession } from './turingDebugger';
 
+// Entry point to debug adapter
+
 // first parse command line arguments to see whether the debug adapter should run as a server
 let port = 0;
 const args = process.argv.slice(2);

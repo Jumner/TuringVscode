@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 import { functionCompletion } from "./completions";
 
+// Built in functions autocomplete
 export const functionProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
 		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 			const completionArray = [];
-
+			
 			completionArray.push(functionCompletion(
 				'abs', 
 				'The abs function is used to find the absolute value of a number',
@@ -597,7 +598,7 @@ export const functionProvider = vscode.languages.registerCompletionItemProvider(
 				'The whatdotcolour function is used to determine the colour number of the specified pixel',
 				'Colour of pixel'
 			));
-			
+			// These are just for testing completion item kind values
 			// completionArray.push(new vscode.CompletionItem('TestValue', vscode.CompletionItemKind.Value));
 			// completionArray.push(new vscode.CompletionItem('TestClass', vscode.CompletionItemKind.Class));
 			// completionArray.push(new vscode.CompletionItem('TestColor', vscode.CompletionItemKind.Color));

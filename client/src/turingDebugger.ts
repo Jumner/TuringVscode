@@ -15,7 +15,7 @@ export interface ILaunchRequestArguments extends DebugProtocol.LaunchRequestArgu
 
 export class DebugSession extends LoggingDebugSession {
 
-	private _runtime: Runtime;
+	private _runtime: Runtime; // Runtime instance
 	private _configurationDone = new Subject();
 
 	public constructor() {
@@ -23,11 +23,11 @@ export class DebugSession extends LoggingDebugSession {
 
 		this._runtime = new Runtime();
 
-		this._runtime.on('output', (text) => {
+		this._runtime.on('output', (text) => { // Handle outputs
 			const e: DebugProtocol.OutputEvent = new OutputEvent(`${text}\n`);
 			this.sendEvent(e);
 		});
-		this._runtime.on('end', () => {
+		this._runtime.on('end', () => { // Handle end events
 			this.sendEvent(new TerminatedEvent());
 		});
 	}
@@ -46,23 +46,22 @@ export class DebugSession extends LoggingDebugSession {
 		// notify the launchRequest that configuration has finished
 		this._configurationDone.notify();
 	}
-
+	// On launch
 	protected async launchRequest(response: DebugProtocol.LaunchResponse, args: ILaunchRequestArguments) {
 		logger.setup(Logger.LogLevel.Stop, false);
 		await this._configurationDone.wait(1000);
-		await this._runtime.start(args.program, args.turingPath, args.useWine);
+		await this._runtime.start(args.program, args.turingPath, args.useWine); // Start it and pass in launch.json args
 
 		this.sendResponse(response);
 	}
 
 	protected async disconnectRequest(response: DebugProtocol.DisconnectRequest, args: DebugProtocol.DisconnectArguments) {
-		// Fuck this, no seriously, fuck it.
-		// Its not terminateRequest or cancelRequest its disconnectRequest
-		// Maybe I just need more sleep and more documentation
+		// Quit turing if user clicks quit
 		this._runtime.quit();
 	}
 
 	protected async restartRequest(response: DebugProtocol.RestartRequest, args: DebugProtocol.RestartArguments) {
+		// Restart turing if user clicks restart
 		this._runtime.restart();
 	}
 }

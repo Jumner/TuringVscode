@@ -1,37 +1,38 @@
 import * as vscode from 'vscode';
 import { constantCompletion } from './completions';
 
+// Provides constant autocomplete
 export const constantProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
 		provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position) {
-			const completionArray = [];
+			const completionArray = []; // Final array of all completions
 			
-
+			// Define keys that cant be made with algorithms 
 			const keys = ["KEY_HOME","KEY_CTRL_HOME","KEY_UP_ARROW","KEY_CTRL_UP_ARROW","KEY_PGUP","KEY_CTRL_PGUP","KEY_LEFT_ARROW","KEY_CTRL_LEFT_ARROW","KEY_RIGHT_ARROW","KEY_CTRL_RIGHT_ARROW","KEY_END","KEY_CTRL_END","KEY_DOWN_ARROW","KEY_CTRL_DOWN_ARROW","KEY_PGDN","KEY_CTRL_PGDN","KEY_INSERT","KEY_CTRL_INSERT","KEY_DELETE","KEY_CTRL_DELETE","KEY_BACKSPACE","KEY_KEYPAD_5","KEY_TAB","KEY_SHIFT","KEY_ENTER","KEY_CTRL","KEY_ESC","KEY_ALT","KEY_CTRL_OPEN_BRACKET","KEY_CTRL_BACKSLASH","KEY_CTRL_CLOSE_BRACKET","KEY_CTRL_CARET","KEY_CTRL_UNDERSCORE","KEY_CTRL_BACKSPACE","KEY_ALT_MINUS","KEY_ALT_EQUALS","KEY_BACK_TAB","KEY_SHIFT_TAB", "ORD_SPACE", "ORD_EXCALAMATION_MARK", "ORD_QUOTATION_MARK", "ORD_HAS_MARK", "ORD_DOLLAR_SIGN", "ORD_PERCENT_SIGN", "ORD_AMPERSAND", "ORD_SINGLE_QUOTE", "ORD_OPEN_PARENTHESIS", "ORD_CLOSE_PARENTHESIS", "ORD_ASTERISK", "ORD_PLUS", "ORD_COMMA", "ORD_MINUS", "ORD_PERIOD", "ORD_DOT", "ORD_SLASH", "ORD_COLON", "ORD_SEMICOLON", "ORD_LESS_THAN", "ORD_EQUALS", "ORD_GREATER_THAN", "ORD_QUESTION_MARK", "ORD_AT_SIGN", "ORD_OPEN_BRACKET", "ORD_BACKSLASH", "ORD_CLOSE_BRACKET", "ORD_CARET", "ORD_UNDERSCORE", "ORD_APOSTROPHE", "ORD_OPEN_BRACE", "ORD_BAR", "ORD_CLOSE_BRACE", "ORD_TILDE"];
-			for (let i = 1; i <= 12; i++) {
+			for (let i = 1; i <= 12; i++) { // F1-F12 keys with CTRL, ALT, and SHIFT
 				keys.push('KEY_F' + i);
 				keys.push('KEY_CTRL_F' + i);
 				keys.push('KEY_ALT_F' + i);
 				keys.push('KEY_SHIFT_F' + i);
 			}
-			for (let i = 0; i <= 9; i++) {
+			for (let i = 0; i <= 9; i++) { // Number keys 0-9, and ALT 0-9
 				keys.push('KEY_ALT_' + i);
 				keys.push('ORD_' + i);
 			}
-			for (let i = 10; i <= 36; i ++) {
-				const letter = i.toString(36).toUpperCase();
-				keys.push('KEY_CTRL_' + letter);
+			for (let i = 10; i <= 36; i ++) { // Keys a-z
+				const letter = i.toString(36).toUpperCase(); // Convert to chars and make them uppercase
+				keys.push('KEY_CTRL_' + letter); // All the edge cases
 				keys.push('KEY_ALT_' + letter);
 				keys.push('ORD_' + letter);
 				keys.push('ORD_LOWER_' + letter);
 			}
-
-			for (let i = 0; i < keys.length; i++) {
-				const key = keys[i];
+			keys.forEach(key => { // Add completion for each key
 				completionArray.push(constantCompletion(key, 'The keycode returned from getch, getchar, and Input.KeyDown', `${key} keycode`));
-			}
+			});
 
+			// All the regular constants
+			// Most are exported unqualified from modules
 			completionArray.push(constantCompletion(
 				'maxcol',
 				'The maxcol function is used to determine the number of columns on the screen',
