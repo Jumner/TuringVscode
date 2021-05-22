@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { userCompletion } from './completions';
+import { hover } from './hover/hoverCompletions';
 
 function count(text : string, char : string) : number {
 	let c = 0;
@@ -8,50 +9,56 @@ function count(text : string, char : string) : number {
 	}
 	return c;
 }
+const variables = ['var', 'const', 'bind'];
+const functions = ['procedure', 'proc', 'function', 'fcn'];
+const classes = ['module', 'class', 'unit', 'monitor'];
+
+function ConvertToLines(docText : string) : string[] {
+	let inBlock = false;
+	const lines = docText.split('\n').map(line => { // Remove block comments
+		if (inBlock) {
+			return '';
+		}
+		if(line.includes('%')) { // Possible line comment
+			if(count(line.substring(0, line.indexOf('%')), '"') % 2 == 0) { // Not in quotes
+				return line.substring(0, line.indexOf('%'));
+			}
+		}
+		if(line.includes('/*')) {
+			if(count(line.substring(0, line.indexOf('/*')), '"') % 2 == 0) { // Not in quotes
+				inBlock = true;	
+				return line.substring(0, line.indexOf('/*'));
+			}
+		} else if (line.includes('*/')) {
+			if(count(line.substring(0, line.indexOf('*/')), '"') % 2 == 0) { // Not in quotes
+				inBlock = false;	
+				return line.substring(line.indexOf('*/'));
+			}
+		}
+		return line;
+	});
+	return lines;
+}
 
 export const userProvider = vscode.languages.registerCompletionItemProvider(
 	't',
 	{
 		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 			const completionArray = [];
-			const variables = ['var', 'const', 'bind'];
-			const functions = ['procedure', 'proc', 'function', 'fcn'];
-			const classes = ['module', 'class', 'unit', 'monitor'];
-			let inBlock = false;
-			const lines = document.getText().split('\n').map(line => { // Remove block comments
-				if (inBlock) {
-					return '';
-				}
-				if(line.includes('%')) { // Possible line comment
-					if(count(line.substring(0, line.indexOf('%')), '"') % 2 == 0) { // Not in quotes
-						return line.substring(0, line.indexOf('%'));
-					}
-				}
-				if(line.includes('/*')) {
-					if(count(line.substring(0, line.indexOf('/*')), '"') % 2 == 0) { // Not in quotes
-						inBlock = true;	
-						return line.substring(0, line.indexOf('/*'));
-					}
-				} else if (line.includes('*/')) {
-					if(count(line.substring(0, line.indexOf('*/')), '"') % 2 == 0) { // Not in quotes
-						inBlock = false;	
-						return line.substring(line.indexOf('*/'));
-					}
-				}
-				return line;
-			});
+			const lines = ConvertToLines(document.getText()); // Convert string to array of lines without comments
 
+			// const userItems = getUserItems(lines, position);
 			const funcObj = {};
 			let exports = [];
 			const varObj = {};
 			for(let i = 0; i <= position.line; i ++) {
 				let indent = lines[i].search(/\S/); // Find first no whitespace
 				indent = indent < 0 ? 0 : indent;
-
+		
 				if (lines[i].trim().indexOf('export') === 0) {
 					exports = lines[i].match(/(?<=\s*export\s*).+/)[0].split(',').map(exp => {return exp.trim();});
 				}
-
+		
 				if(functions.filter(func => {return lines[i].trim().indexOf(func) === 0;}).length > 0) {
 					const funcName = lines[i].match(/(?<=(procedure|proc|function|fnc)\s)\w+(?=[\s(\n])/)[0];
 					funcObj[funcName] = indent;
@@ -63,7 +70,7 @@ export const userProvider = vscode.languages.registerCompletionItemProvider(
 						}
 					}
 				}
-
+		
 				if(variables.filter(variable => {return lines[i].trim().indexOf(variable) === 0;}).length > 0) { // Is a var
 					const varName = lines[i].match(/(?<=(bind\s)?(var|const)\s)\w+/)[0];
 					varObj[varName] = indent;
@@ -76,6 +83,7 @@ export const userProvider = vscode.languages.registerCompletionItemProvider(
 					}
 				}
 			}
+
 
 			for(const key in funcObj) {
 				if(exports.includes(key)) {

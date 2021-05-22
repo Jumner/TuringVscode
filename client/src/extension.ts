@@ -11,6 +11,7 @@ import { userProvider } from './providers/userProvider';
 import * as path from 'path';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
 import { exec } from 'child_process';
+import { functionHelpProvider } from './providers/sigHelp/sigHelpProvider';
 
 let client : LanguageClient;
 
@@ -67,8 +68,8 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}));
 	context.subscriptions.push(functionProvider, moduleProvider, constantProvider, keywordProvider, operatorProvider, userProvider);
-	context.subscriptions.push(constantHoverProvider, functionHoverProvider, keywordHoverProvider, moduleHoverProvider, operatorHoverProvider);
-
+	context.subscriptions.push(functionHoverProvider, moduleHoverProvider, constantHoverProvider, keywordHoverProvider, operatorHoverProvider);
+	context.subscriptions.push(functionHelpProvider);
 	// Language server
 	const serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
 	const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };

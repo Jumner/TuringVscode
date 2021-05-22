@@ -11,36 +11,41 @@ function count(text, char) {
     }
     return c;
 }
+const variables = ['var', 'const', 'bind'];
+const functions = ['procedure', 'proc', 'function', 'fcn'];
+const classes = ['module', 'class', 'unit', 'monitor'];
+function ConvertToLines(docText) {
+    let inBlock = false;
+    const lines = docText.split('\n').map(line => {
+        if (inBlock) {
+            return '';
+        }
+        if (line.includes('%')) { // Possible line comment
+            if (count(line.substring(0, line.indexOf('%')), '"') % 2 == 0) { // Not in quotes
+                return line.substring(0, line.indexOf('%'));
+            }
+        }
+        if (line.includes('/*')) {
+            if (count(line.substring(0, line.indexOf('/*')), '"') % 2 == 0) { // Not in quotes
+                inBlock = true;
+                return line.substring(0, line.indexOf('/*'));
+            }
+        }
+        else if (line.includes('*/')) {
+            if (count(line.substring(0, line.indexOf('*/')), '"') % 2 == 0) { // Not in quotes
+                inBlock = false;
+                return line.substring(line.indexOf('*/'));
+            }
+        }
+        return line;
+    });
+    return lines;
+}
 exports.userProvider = vscode.languages.registerCompletionItemProvider('t', {
     provideCompletionItems(document, position) {
         const completionArray = [];
-        const variables = ['var', 'const', 'bind'];
-        const functions = ['procedure', 'proc', 'function', 'fcn'];
-        const classes = ['module', 'class', 'unit', 'monitor'];
-        let inBlock = false;
-        const lines = document.getText().split('\n').map(line => {
-            if (inBlock) {
-                return '';
-            }
-            if (line.includes('%')) { // Possible line comment
-                if (count(line.substring(0, line.indexOf('%')), '"') % 2 == 0) { // Not in quotes
-                    return line.substring(0, line.indexOf('%'));
-                }
-            }
-            if (line.includes('/*')) {
-                if (count(line.substring(0, line.indexOf('/*')), '"') % 2 == 0) { // Not in quotes
-                    inBlock = true;
-                    return line.substring(0, line.indexOf('/*'));
-                }
-            }
-            else if (line.includes('*/')) {
-                if (count(line.substring(0, line.indexOf('*/')), '"') % 2 == 0) { // Not in quotes
-                    inBlock = false;
-                    return line.substring(line.indexOf('*/'));
-                }
-            }
-            return line;
-        });
+        const lines = ConvertToLines(document.getText()); // Convert string to array of lines without comments
+        // const userItems = getUserItems(lines, position);
         const funcObj = {};
         let exports = [];
         const varObj = {};
