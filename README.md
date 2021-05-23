@@ -1,49 +1,26 @@
-<div style="text-align: center;">
-	<img src="images/turing.png" alt="" width="60px" style="border-radius: 25%; vertical-align:middle;" />
-	<h1 style="display: inline-block; vertical-align:middle;">Turing Vscode</h1>
-</div>
+# Turing Vscode
+
+---
 
 Turing Vscode (originally Turing Syntax Highlighting) is a language extension that adds basic language support using [OpenTuring](https://github.com/Open-Turing-Project/OpenTuring).
-
 <div align="center">
-  <a href="https://github.com/Jumner/TuringVscode/releases/" target="_blank">
-    <img alt="GitHub release" src="https://img.shields.io/github/v/release/Jumner/TuringVscode?include_prereleases&style=flat-square">
-  </a>
 
-  <a href="https://github.com/Jumner/TuringVscode/commits/main" target="_blank">
-    <img src="https://img.shields.io/github/last-commit/Jumner/TuringVscode?style=flat-square&color=green" alt="GitHub last commit">
-  </a>
+  [![GitHub release](https://img.shields.io/github/v/release/Jumner/TuringVscode?include_prereleases&style=flat-square)](https://github.com/Jumner/TuringVscode/releases/) [![GitHub last commit](https://img.shields.io/github/last-commit/Jumner/TuringVscode?style=flat-square&color=green)](https://github.com/Jumner/TuringVscode/commits/main) [![GitHub issues](https://img.shields.io/github/issues/Jumner/TuringVscode?style=flat-square&color=red)](https://github.com/Jumner/TuringVscode/issues)
+  [![GitHub pull requests](https://img.shields.io/github/issues-pr/Jumner/TuringVscode?style=flat-square&color=purple)](https://github.com/Jumner/TuringVscode/pulls) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Jumner.tsh.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=Jumner.tsh) [![LICENSE](https://img.shields.io/github/license/Jumner/TuringVscode?style=flat-square&color=yellow)](https://github.com/Jumner/TuringVscode/blob/main/LICENSE.txt)
 
-  <a href="https://github.com/Jumner/TuringVscode/issues" target="_blank">
-    <img src="https://img.shields.io/github/issues/Jumner/TuringVscode?style=flat-square&color=red" alt="GitHub issues">
-  </a>
-	<br />
-  <a href="https://github.com/Jumner/TuringVscode/pulls" target="_blank">
-    <img src="https://img.shields.io/github/issues-pr/Jumner/TuringVscode?style=flat-square&color=purple" alt="GitHub pull requests">
-  </a>
-	<a href="https://marketplace.visualstudio.com/items?itemName=Jumner.tsh" target="_blank">
-    <img alt="Installs" src="https://vsmarketplacebadge.apphb.com/installs-short/Jumner.tsh.svg?style=flat-square">
-  </a> 
-  <a href="https://github.com/Jumner/TuringVscode/blob/main/LICENSE.txt" target="_blank">
-    <img alt="LICENSE" src="https://img.shields.io/github/license/Jumner/TuringVscode?style=flat-square&color=yellow">
-  </a> 
 </div>
 
 ---
 ## Features
-<div align="center">
-	<img src="images/Example.gif" alt="" width="90%" />
-</div>
-<div" style="position: absolute; left: 5%">
-	<ul>
-		<li>Syntax highlighting which makes it look pretty</li>
-		<li>Snippets for remembering the intricacies of Turing</li>
-		<li>Run turing straight from Vscode</li>
-		<li>Basic intellisense for faster programming</li>
-		<li>Just hover over any function to learn what it does</li>
-		<li>Signature help tells you what parameter you need to enter</li>
-	</ul>
-</div>
+
+![](images/Example.gif)
+
+- Syntax highlighting which makes it look pretty
+- Snippets for remembering the intricacies of Turing
+- Run turing straight from Vscode
+- Basic intellisense for faster programming
+- Just hover over any function to learn what it does
+- Signature help tells you what parameter you need to enter
 
 Note that I am no longer actively working on the project and so there wont be any versions for a while. If anyone makes a pull request I will probably accept it once I get around to checking on this project. In the meantime, I hope this extension makes your turing experience just a little better.
 
