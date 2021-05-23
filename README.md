@@ -1,9 +1,3 @@
-<style>
-	a > img {
-		border-radius:5px
-	}
-</style>
-
 <div style="text-align: center;">
 	<img src="images/turing.png" alt="" width="60px" style="border-radius: 25%; vertical-align:middle;" />
 	<h1 style="display: inline-block; vertical-align:middle;">Turing Vscode</h1>
@@ -51,12 +45,15 @@ Turing Vscode (originally Turing Syntax Highlighting) is a language extension th
 	</ul>
 </div>
 
+Note that I am no longer actively working on the project and so there wont be any versions for a while. If anyone makes a pull request I will probably accept it once I get around to checking on this project. In the meantime, I hope this extension makes your turing experience just a little better.
+
 ---
 
 ## Requirements
 
 - You must have OpenTuring installed and linked in settings for debugging to work.
 - Wine must be installed if you're on Mac/Linux for debugging to work.
+
 #### Dev
 
 Start by cloning the repository
