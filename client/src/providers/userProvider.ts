@@ -72,8 +72,9 @@ export const userProvider = vscode.languages.registerCompletionItemProvider(
 				}
 		
 				if(variables.filter(variable => {return lines[i].trim().indexOf(variable) === 0;}).length > 0) { // If line starts with a variable definition
-					const varName = lines[i].match(/(?<=(bind\s)?(var|const)\s)\w+/)[0]; // Match the variable name
-					varObj[varName] = indent; // Set the name as the key to its indentation
+					lines[i].match(/(?<=(bind\s)?(var|const)\s).+(?=(\s?:))/)[0].split(',').forEach(varName => { // Match the variable name(s)
+						varObj[varName.trim()] = indent; // Set the name as the key to its indentation
+					}); 
 				}
 				for(const key in varObj) {
 					if(varObj[key] > indent) { // Variable is more indented so its out of scope

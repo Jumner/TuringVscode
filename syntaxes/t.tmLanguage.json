@@ -54,6 +54,10 @@
 			"patterns": [
 				{
 					"name": "entity.name.function.t",
+					"match": "(hasch|getchar|abs|arccosd|arccos|arcsind|arcsin|arctand|arctan|buttonchoose|buttonmoved|buttonwait|ceil|chr|clock|cls|colourback|colour|cosd|cos|date|delay|drawarc|drawbox|drawdot|drawfillarc|drawfillbox|drawfillmapleleaf|drawfilloval|drawfillpolygon|drawfillstar|drawfill|drawline|drawmapleleaf|drawoval|drawpic|drawpolygon|drawstar|empty|enum|eof|erealstr|exp|fetcharg|floor|frealstr|getch|getenv|getpid|getpriority|index|init|intreal|intstr|length|ln|locatexy|locate|lower|max|min|natreal|natstr|ord|parallelget|parallelput|play|pred|randseed|randnext|randint|rand|realstr|repeat|round|setpriority|setsccreen|sign|sind|sin|sizeof|sound|sqrt|strintok|strint|strnatok|strnat|strrealok|strreal|substring|succ|sysclock|system|tand|tan|time|upper|wallclock|whatdotcolour)(?![^\\s(])"
+				},
+				{
+					"name": "entity.name.function.t",
 					"match": "(?<![^:f][^\\s])(real|int|boolean|string|array|nat|char)"
 				},
 				{
@@ -68,10 +72,6 @@
 		},
 		"functions": {
 			"patterns": [
-				{
-					"name": "entity.name.function.t",
-					"match": "(hasch|getchar|abs|arccosd|arccos|arcsind|arcsin|arctand|arctan|buttonchoose|buttonmoved|buttonwait|ceil|chr|clock|cls|colourback|colour|cosd|cos|date|delay|drawarc|drawbox|drawdot|drawfillarc|drawfillbox|drawfillmapleleaf|drawfilloval|drawfillpolygon|drawfillstar|drawfill|drawline|drawmapleleaf|drawoval|drawpic|drawpolygon|drawstar|empty|enum|eof|erealstr|exp|fetcharg|floor|frealstr|getch|getenv|getpid|getpriority|index|init|intreal|intstr|length|ln|locatexy|locate|lower|max|min|natreal|natstr|ord|parallelget|parallelput|play|pred|randseed|randnext|randint|rand|realstr|repeat|round|setpriority|setsccreen|sign|sind|sin|sizeof|sound|sqrt|strintok|strint|strnatok|strnat|strrealok|strreal|substring|succ|sysclock|system|tand|tan|time|upper|wallclock|whatdotcolour)(?![^\\s(])"
-				},
 				{
 					"name": "variable.other.property.t",
 					"match": "(?<![^\\s(,])(maxcolour|maxcol|maxint|maxnat|maxrow|maxx|maxy|minint|minnat|playdone|simutime|whatcolourback|whatcolour|whatcol|whatrow|KEY(_|_SHIFT_|_CTRL_|_ALT_)F(1[0-2]|[1-9])|KEY_ALT_\\d|KEY_(CTRL|ALT)_[A-Z]|KEY(_|_CTRL_)(HOME|UP_ARROW|PGUP|LEFT_ARROW|END|DOWN_ARROW|PGDN|INSERT|DELETE|BACKSPACE)|KEY_CTRL_(OPEN_BRACKET|CLOSE_BRACKET|UNDERSCORE|BACKSLASH|CARET|)KEY(_|_SHIFT_)TAB|KEY_(TAB|ENTER|ESC|KEYPAD_5|ALT_EQUALS|SHIFT_TAB|BACK_TAB_ALT_MINUS|SHIFT|CTRL|ALT)|ORD_(\\d|LOWER_?[A-Z]|SPACE|QUOTATION_MARK|DOLLAR_SIGN|AMPERSAND|OPEN_PARENTHESIS|ASTERISK|COMMA|PERIOD|SLASH|SEMICOLON|EQUALS|QUESTION_MARK|OPEN|BRACKET|CLOSE|BRACKET|UNDERSCORE|OPEN_BRACE|CLOSE_BRACE|EXCALAMATION_MARK|HAS_MARK|PERCENT_SIGN|SINGLE_QUOTE|CLOSE_PARENTHESIS|PLUS|MINUS|DOT|COLON|LESS_THAN|GREATER_THAN|AT_SIGN|BACKSLASH|CARET|APOSTROPHE|BAR|TILDE))(?![^\\s),])"
