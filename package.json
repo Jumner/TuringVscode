@@ -1,131 +1,131 @@
 {
-    "name": "tsh",
-    "displayName": "Turing Vscode",
-    "publisher": "Jumner",
-    "version": "0.1.0",
-    "description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
-    "icon": "images/turing.png",
-    "homepage": "https://github.com/Jumner/TuringVscode",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Jumner/TuringVscode.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Jumner/TuringVscode/issues"
-    },
-    "license": "SEE LICENSE IN LICENSE.txt",
-    "engines": {
-        "vscode": "^1.56.0"
-    },
-    "categories": [
-        "Programming Languages",
-        "Snippets",
-        "Debuggers"
-    ],
-    "keywords": [
-        "Turing",
-        "OpenTuring"
-    ],
-    "activationEvents": [
-        "onLanguage:t",
-        "onDebug",
-        "onDebugResolve:turing",
-        "onDebugDynamicConfigurations:turing"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "t",
-                "aliases": [
-                    "Turing",
-                    "t"
-                ],
-                "extensions": [
-                    ".t",
-                    ".tu"
-                ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "t",
-                "scopeName": "source.t",
-                "path": "./syntaxes/t.tmLanguage.json"
-            }
-        ],
-        "snippets": [
-            {
-                "language": "t",
-                "path": "./snippets/snippets.json"
-            }
-        ],
-        "debuggers": [
-            {
-                "type": "turing",
-                "languages": [
-                    "t"
-                ],
-                "label": "Turing Debug",
-                "program": "./client/out/debugAdapter.js",
-                "runtime": "node",
-                "configurationAttributes": {
-                    "launch": {
-                        "required": [
-                            "program"
-                        ],
-                        "properties": {
-                            "program": {
-                                "type": "string",
-                                "description": "Relative path to Turing file.",
-                                "default": "${file}"
-                            },
-                            "turingPath": {
-                                "type": "string",
-                                "description": "Absolute path to turing.exe",
-                                "default": ""
-                            },
-                            "useWine": {
-                                "type": "boolean",
-                                "description": "Use wine for Turing debugging (Linux and Mac)",
-                                "default": false
-                            }
-                        }
-                    }
-                }
-            }
-        ],
-        "configuration": {
-            "title": "Turing Vscode",
-            "properties": {
-                "tsh.pathToOpenTuring": {
-                    "type": "string",
-                    "description": "Path to the turing executable for debugging"
-                }
-            }
-        }
-    },
-    "main": "./client/out/extension.js",
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b",
-        "lint": "eslint . --ext .ts,.tsx",
-        "watch": "tsc -b -w"
-    },
-    "devDependencies": {
-        "@types/node": "15.0.2",
-        "@types/vscode": "1.56.0",
-        "@typescript-eslint/eslint-plugin": "^4.16.0",
-        "@typescript-eslint/parser": "^4.16.0",
-        "eslint": "^7.21.0",
-        "typescript": "^4.2.2"
-    },
-    "dependencies": {
-        "await-notify": "^1.0.1",
-        "vscode-debugadapter": "^1.47.0",
-        "vscode-debugprotocol": "^1.47.0",
-        "vscode-languageclient": "^7.0.0",
-        "vscode-languageserver": "^7.0.0",
-        "vscode-languageserver-textdocument": "^1.0.1"
-    }
+	"name": "tsh",
+	"displayName": "Turing Vscode",
+	"publisher": "Jumner",
+	"version": "0.1.1",
+	"description": "An extension that adds syntax highlighting, snippets, \"debugging\", and basic autocomplete to the Canadian education programming language Turing.",
+	"icon": "images/turing.png",
+	"homepage": "https://github.com/Jumner/TuringVscode",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Jumner/TuringVscode.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Jumner/TuringVscode/issues"
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"engines": {
+		"vscode": "^1.56.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Debuggers"
+	],
+	"keywords": [
+		"Turing",
+		"OpenTuring"
+	],
+	"activationEvents": [
+		"onLanguage:t",
+		"onDebug",
+		"onDebugResolve:turing",
+		"onDebugDynamicConfigurations:turing"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "t",
+				"aliases": [
+					"Turing",
+					"t"
+				],
+				"extensions": [
+					".t",
+					".tu"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "t",
+				"scopeName": "source.t",
+				"path": "./syntaxes/t.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "t",
+				"path": "./snippets/snippets.json"
+			}
+		],
+		"debuggers": [
+			{
+				"type": "turing",
+				"languages": [
+					"t"
+				],
+				"label": "Turing Debug",
+				"program": "./client/out/debugAdapter.js",
+				"runtime": "node",
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"program"
+						],
+						"properties": {
+							"program": {
+								"type": "string",
+								"description": "Relative path to Turing file.",
+								"default": "${file}"
+							},
+							"turingPath": {
+								"type": "string",
+								"description": "Absolute path to turing.exe",
+								"default": ""
+							},
+							"useWine": {
+								"type": "boolean",
+								"description": "Use wine for Turing debugging (Linux and Mac)",
+								"default": false
+							}
+						}
+					}
+				}
+			}
+		],
+		"configuration": {
+			"title": "Turing Vscode",
+			"properties": {
+				"tsh.pathToOpenTuring": {
+					"type": "string",
+					"description": "Path to the turing executable for debugging"
+				}
+			}
+		}
+	},
+	"main": "./client/out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"lint": "eslint . --ext .ts,.tsx",
+		"watch": "tsc -b -w"
+	},
+	"devDependencies": {
+		"@types/node": "15.0.2",
+		"@types/vscode": "1.56.0",
+		"@typescript-eslint/eslint-plugin": "^4.16.0",
+		"@typescript-eslint/parser": "^4.16.0",
+		"eslint": "^7.21.0",
+		"typescript": "^4.2.2"
+	},
+	"dependencies": {
+		"await-notify": "^1.0.1",
+		"vscode-debugadapter": "^1.47.0",
+		"vscode-debugprotocol": "^1.47.0",
+		"vscode-languageclient": "^7.0.0",
+		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1"
+	}
 }

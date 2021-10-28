@@ -68,7 +68,7 @@ exports.userProvider = vscode.languages.registerCompletionItemProvider('t', {
                 }
             }
             if (variables.filter(variable => { return lines[i].trim().indexOf(variable) === 0; }).length > 0) { // If line starts with a variable definition
-                lines[i].match(/(?<=(bind\s)?(var|const)\s).+(?=(\s?:))/)[0].split(',').forEach(varName => {
+                lines[i].match(/(?<=(bind\s)?(var|const)\s).+(?=(\s?:[^=]))/)[0].split(',').forEach(varName => {
                     varObj[varName.trim()] = indent; // Set the name as the key to its indentation
                 });
             }

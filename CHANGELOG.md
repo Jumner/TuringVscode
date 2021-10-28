@@ -40,7 +40,7 @@
 - Improved syntax highlighting:
 - Arrays were treated as functions when accessed and so now, syntax highlighting colours them as such.
 - A few functions were treated as keywords, they are now all functions.
-- Windows underlining works just fine now (I actually tested it this time). 
+- Windows underlining works just fine now (I actually tested it this time).
 - User defined functions, variables, classes, and Class Methods and Properties now autocomplete.
 - User defined items do not autocomplete out of their scope.
 - Class methods and properties still autocomplete without proper prefixes
@@ -68,3 +68,7 @@
 
 - No real changes made to extension
 - Readme should now display properly as the html use is limited
+
+### 0.1.1 (Light fixes)
+
+- Defined variables autocomplete correctly
